@@ -79,7 +79,6 @@ class RegisterViewController: UIViewController {
                 
                 //if no error registering user, then present the mainView
                 Service.toHomeTabController(on: self)
-                
             }
         }
     }
