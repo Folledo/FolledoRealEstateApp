@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+
 
 class RegisterViewController: UIViewController {
+    
+    var phoneNumber: String? //RE ep.20 2mins
     
     //spinner
     lazy var spinner: UIActivityIndicatorView = {
@@ -53,9 +58,50 @@ class RegisterViewController: UIViewController {
     
     
 //MARK: IBActions
-    @IBAction func requestButtonTapped(_ sender: Any) { //RE ep.10
+    @IBAction func requestButtonTapped(_ sender: Any) { //RE ep.10 //requestCode
         
+        if phoneNumberTextField.text != "" { //RE ep.20 0min
+            PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumberTextField.text!, uiDelegate: nil) { (verificationID, error) in //RE ep.20 1min
+                
+                if let error = error { //RE ep.20 1min
+                    Service.presentAlert(on: self, title: "Phone Error", message: error.localizedDescription) //RE ep.20 2mins
+                    return
+                }
+                
+                //if no error verifying phoneNumber inputted, first show code textfield
+                self.phoneNumber = self.phoneNumberTextField.text! //RE ep.20 3mins
+                self.phoneNumberTextField.text = "" //RE ep.20 3mins remove text
+                self.phoneNumberTextField.placeholder = self.phoneNumber! //RE ep.20 3mins
+                self.phoneNumberTextField.isEnabled = false //RE ep.20 4mins because we dont want the user to play with the phone number textfield anymore, that is why we put it as placeholder
+                self.codeTextField.isHidden = false //RE ep.20 4mins show code tf
+                self.requestButton.setTitle("Register", for: .normal) //RE ep.20 5mins
+                
+                UserDefaults.standard.set(verificationID, forKey: kVERIFICATIONCODE) //RE ep.20 5mins set our verificationID we got from verifyPhoneNumber's completion handler to our kVERIFICATIONCODE
+                UserDefaults.standard.synchronize() //RE ep.20 5mins save it
+            }
+        }
         
+        if codeTextField.text != "" { //RE ep.20 5mins
+            FUser.registerUserWith(phoneNumber: self.phoneNumber!, verificationCode: codeTextField.text!) { (error, shouldLogin) in //RE ep.20 6mins
+             //RE ep.20 7mins//check if we are login or registering
+                if let error = error {
+                    Service.presentAlert(on: self, title: "Phone Number Registering Error", message: error.localizedDescription)
+                } //RE ep.20 7mins
+                
+                if shouldLogin { //RE ep.20 8mins go to main view
+                    print("Go to Main View")
+                    Service.toHomeTabController(on: self)
+                    
+                } else { //RE ep.20 8mins go to finish register view
+                    print("Go to Finish Registering View")
+                    Service.toHomeTabController(on: self)
+                    
+                }
+                
+                
+            }
+            
+        }
     }
     
     
@@ -88,5 +134,11 @@ class RegisterViewController: UIViewController {
 //        self.dismiss(animated: true, completion: nil)
     }
     
-
-}
+    
+    
+    
+    
+    
+    
+    
+} //end of Controller

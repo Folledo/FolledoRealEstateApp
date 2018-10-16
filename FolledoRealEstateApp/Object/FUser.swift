@@ -144,9 +144,64 @@ class FUser { //RE ep.11 1mins
         
     }
     
+    
+    
+    class func registerUserWith(phoneNumber: String, verificationCode: String, completion: @escaping (_ error: Error?, _ shouldLogin: Bool) -> Void) { //RE ep.17 1min
+        
+        let verificationID = UserDefaults.standard.value(forKey: kVERIFICATIONCODE) //RE ep.17 2mins //kVERIFICATIONCODE = "firebase_verification" //3min Once our user inputs phone number and request a code, firebase will send the modification code which is not the password code. This code is sent by Firebase in the background to identify if the application is actually running on the device that is requesting the code.
+        
+        let credentials = PhoneAuthProvider.provider().credential(withVerificationID: verificationID as! String, verificationCode: verificationCode) //RE ep.17 4mins //Firebase's credential =
+        /*Summary
+                    Creates an `FIRAuthCredential` for the phone number provider identified by the verification ID and verification code.
+         
+         Parameters
+                    verificationID
+                            The verification ID obtained from invoking verifyPhoneNumber:completion:
+                    verificationCode
+                            The verification code obtained from the user.
+         
+         Returns
+                    The corresponding phone auth credential for the verification ID and verification code provided.
+*/
+        Auth.auth().signInAndRetrieveData(with: credentials) { (firUser, error) in //RE ep.17 5mins Asynchronously signs in to Firebase with the given 3rd-party credentials (e.g. a Facebook login Access Token, a Google ID Token/Access Token pair, etc.) and returns additional identity provider data.
+            if let error = error { //if there's error put false on completion's shouldLogin parameter
+                completion(error, false) //RE ep.17 6mins
+                return
+            }
+            
+        //check if user is logged in else register
+            fetchUserWith(userId: (firUser?.user.uid)!, completion: { (user) in //RE ep.18 2mins
+                
+                if user != nil && user?.firstName != "" { //RE ep.18 3mins check if user is nil and user has a first name, provides extra protection
+                    
+                //we have a user, login the user
+                    saveUserLocally(fUser: user!) //RE ep.18 4mins save user in our UserDefaults. We dont need to save in background because we are already getting/fetching it
+                    completion(error, true) //RE ep.18 call our callback function to exit and finally input the error or shouldLogin to true
+                    
+                    
+                } else { //RE ep.18 4mins we have no user, register the user
+                    let fUser = FUser(_objectId: (firUser?.user.uid)!, _pushId: "", _createdAt: Date(), _updatedAt: Date(), _firstName: "", _lastName: "", _phoneNumber: (firUser?.user.phoneNumber)!) //RE ep.18 6mins so we create a user
+                    
+                    saveUserLocally(fUser: fUser) //RE ep.18 7mins now we have the newly registered user, save it locally and in background
+                    saveUserInBackground(fUser: fUser) //RE ep.18 7mins
+                    completion(error, false) //RE ep.18 7mins pass error which is nil, and shouldLogin = false because we need to finish registering the user. Need a new VC for that
+                    
+                }
+                
+            })
+            
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
 } //end of class
 
-//MARK: Saving user
+//+++++++++++++++++++++++++   MARK: Saving user   ++++++++++++++++++++++++++++++++++
 func saveUserInBackground(fUser: FUser) { //RE ep.15 10mins
     let ref = firDatabase.child(kUSER).child(fUser.objectId) //RE ep.15 13mins, kUSER = "User". objectId is the user UID
     ref.setValue(userDictionaryFrom(user: fUser)) //RE ep.15 14mins Database's "User" will have the user's uid as its child, and then set the values of the userDictionary to the child uid/objectId //Overall, creates a reference for our user in our Database
@@ -159,7 +214,32 @@ func saveUserLocally(fUser: FUser) { //RE ep.15 9mins
 }
 
 
+
+
+
 //MARK: Helper fuctions
+
+func fetchUserWith(userId: String, completion: @escaping (_ user: FUser?) -> Void) { //RE ep.17 10mins with userId!
+    let ref = firDatabase.child(kUSER).queryOrdered(byChild: kOBJECTID).queryEqual(toValue: userId) //RE ep.17 11mins orderedByChild orders all our users using their objectId. And objectId is going to be query equals userId we are passing
+    //queryOrderBy: is used to generate a reference to a view of the data that's been sorted by the values of a particular child key. This method is intended to be used in combination with queryStartingAtValue:, queryEndingAtValue:, or queryEqualToValue:.
+    //queryEqualToValue: is used to generate a reference to a limited view of the data at this location. The FIRDatabaseQuery instance returned by queryEqualToValue: will respond to events at nodes with a value equal to the supplied argument.
+    ref.observeSingleEvent(of: .value) { (snapshot) in //RE ep.17 12mins observe one value only. //.value = Any data changes at a location or, recursively, at any child node.
+        
+        if snapshot.exists() { //RE ep.18 0min if we find a user
+            let userDictionary = ((snapshot.value as! NSDictionary).allValues as NSArray).firstObject! as! NSDictionary //RE ep.18 1min
+            let user = FUser(_dictionary: userDictionary) //RE ep.18 2mins assign
+            completion(user) //RE ep.18 2mins gives the user in completion
+            
+        } else { //RE ep.18 0min snapshot dont exist
+            completion(nil) //RE ep.18 0min we dont have a user
+        }
+        
+        
+    }
+    
+}
+
+
 func userDictionaryFrom(user: FUser) -> NSDictionary { //RE ep.15 1min take a user and return an NSDictionary
     
     let createdAt = dateFormatter().string(from: user.createdAt) //RE ep.15 2mins

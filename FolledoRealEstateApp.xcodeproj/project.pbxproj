@@ -10,6 +10,8 @@
 		13516DF09D2310A0B534B418 /* Pods_FolledoRealEstateAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC3D5A169725B48C3CA905 /* Pods_FolledoRealEstateAppUITests.framework */; };
 		58963E844365A453C7EC4539 /* Pods_FolledoRealEstateApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384936EB6F597481FE010031 /* Pods_FolledoRealEstateApp.framework */; };
 		C7A2A41C9C11192CC6937150 /* Pods_FolledoRealEstateAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8645F7B512F810725DFA665 /* Pods_FolledoRealEstateAppTests.framework */; };
+		CD1685552176A61100610EC0 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CD1685532176A61100610EC0 /* ProgressHUD.bundle */; };
+		CD1685562176A61100610EC0 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1685542176A61100610EC0 /* ProgressHUD.m */; };
 		CD2A83EA2174125600474637 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2A83E92174125600474637 /* AppDelegate.swift */; };
 		CD2A83EF2174125600474637 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD2A83ED2174125600474637 /* Main.storyboard */; };
 		CD2A83F12174126400474637 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD2A83F02174126400474637 /* Assets.xcassets */; };
@@ -49,6 +51,10 @@
 		5A2CEDDD1D12EE5494AF8CCA /* Pods-FolledoRealEstateApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FolledoRealEstateApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FolledoRealEstateApp/Pods-FolledoRealEstateApp.release.xcconfig"; sourceTree = "<group>"; };
 		65FC3D5A169725B48C3CA905 /* Pods_FolledoRealEstateAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FolledoRealEstateAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		922DF842D2596F87EFF0D599 /* Pods-FolledoRealEstateApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FolledoRealEstateApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FolledoRealEstateApp/Pods-FolledoRealEstateApp.debug.xcconfig"; sourceTree = "<group>"; };
+		CD16855021767D0700610EC0 /* FolledoRealEstateApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FolledoRealEstateApp.entitlements; sourceTree = "<group>"; };
+		CD1685522176A61100610EC0 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		CD1685532176A61100610EC0 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
+		CD1685542176A61100610EC0 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		CD2A83E62174125600474637 /* FolledoRealEstateApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FolledoRealEstateApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD2A83E92174125600474637 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD2A83EE2174125600474637 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -123,6 +129,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		CD1685512176A61100610EC0 /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				CD1685522176A61100610EC0 /* ProgressHUD.h */,
+				CD1685532176A61100610EC0 /* ProgressHUD.bundle */,
+				CD1685542176A61100610EC0 /* ProgressHUD.m */,
+			);
+			path = ProgressHUD;
+			sourceTree = "<group>";
+		};
 		CD2A83DD2174125500474637 = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +164,7 @@
 		CD2A83E82174125600474637 /* FolledoRealEstateApp */ = {
 			isa = PBXGroup;
 			children = (
+				CD16855021767D0700610EC0 /* FolledoRealEstateApp.entitlements */,
 				CD2A83E92174125600474637 /* AppDelegate.swift */,
 				CD8DCA112175059F00AD878C /* Object */,
 				CD8DCA102174FBF000AD878C /* Helpers */,
@@ -158,6 +175,7 @@
 				CD2A83F52174126400474637 /* Info.plist */,
 				CD2A841721741F3500474637 /* GoogleService-Info.plist */,
 				CD8DCA022174243200AD878C /* FolledoRealEstateApp-Bridging-Header.h */,
+				CD1685512176A61100610EC0 /* ProgressHUD */,
 			);
 			path = FolledoRealEstateApp;
 			sourceTree = "<group>";
@@ -271,6 +289,11 @@
 					CD2A83E52174125600474637 = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1000;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					CD2A83F92174126500474637 = {
 						CreatedOnToolsVersion = 10.0;
@@ -310,6 +333,7 @@
 				CD2A83F42174126400474637 /* LaunchScreen.storyboard in Resources */,
 				CD2A841821741F3500474637 /* GoogleService-Info.plist in Resources */,
 				CD2A83F12174126400474637 /* Assets.xcassets in Resources */,
+				CD1685552176A61100610EC0 /* ProgressHUD.bundle in Resources */,
 				CD2A83EF2174125600474637 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,6 +443,7 @@
 				CD8DCA092174592200AD878C /* RegisterViewController.swift in Sources */,
 				CD2A83EA2174125600474637 /* AppDelegate.swift in Sources */,
 				CD8DCA0721742F2300AD878C /* Constants.swift in Sources */,
+				CD1685562176A61100610EC0 /* ProgressHUD.m in Sources */,
 				CD8DCA0B2174D72C00AD878C /* FUser.swift in Sources */,
 				CD8DCA0D2174DF0000AD878C /* Settings.swift in Sources */,
 				CD8DCA0F2174FBE200AD878C /* Service.swift in Sources */,
@@ -598,6 +623,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = FolledoRealEstateApp/FolledoRealEstateApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8KSKUH7X29;
 				INFOPLIST_FILE = FolledoRealEstateApp/Info.plist;
@@ -620,6 +646,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = FolledoRealEstateApp/FolledoRealEstateApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8KSKUH7X29;
 				INFOPLIST_FILE = FolledoRealEstateApp/Info.plist;
