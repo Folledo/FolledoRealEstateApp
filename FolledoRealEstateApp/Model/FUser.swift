@@ -250,3 +250,60 @@ func userDictionaryFrom(user: FUser) -> NSDictionary { //RE ep.15 1min take a us
                         forKeys: [kOBJECTID as NSCopying, kCREATEDAT as NSCopying, kUPDATEDAT as NSCopying, kCOMPANY as NSCopying, kPUSHID as NSCopying, kFIRSTNAME as NSCopying, kLASTNAME as NSCopying, kFULLNAME as NSCopying, kAVATAR as NSCopying, kPHONE as NSCopying, kADDPHONE as NSCopying, kISAGENT as NSCopying, kCOINS as NSCopying, kFAVORIT as NSCopying, ]) //RE ep.15 5mins - 7mins //now this func create and return an NSDictionary
 }
 
+
+//RE ep.24 0min method for updating our users in Firebase with any values we want
+func updateCurrentUser(withValues: [String : Any], withBlock: @escaping(_ success: Bool) -> Void) { //RE ep.24 0min will pass a dictionary with an Any value, with running a background thread escaping, pass success type boolean, so we can return if user was updated successfully, no return here so void
+    
+    if UserDefaults.standard.object(forKey: kCURRENTUSER) != nil { //RE ep.24 2mins
+        let currentUser = FUser.currentUser()! //RE ep.24 3mins
+        let userObject = userDictionaryFrom(user: currentUser).mutableCopy() as! NSMutableDictionary //RE ep.24 3mins //this makes the normal dictionary a mutable dictionary and specify it as NSMutableDictionary
+        userObject.setValuesForKeys(withValues) //RE ep.24 4mins pass our withValues parameter and to pass it to userObject, now we can save our user to Firebase
+        
+        let ref = firDatabase.child(kUSER).child(currentUser.objectId) //RE ep.24 4mins
+        ref.updateChildValues(withValues) { (error, ref) in //RE ep.24 5mins
+            if error != nil { //RE ep.24 6mins
+                withBlock(false) //RE ep.24 6mins
+                return //RE ep.24 6mins
+            }
+            
+            UserDefaults.standard.set(userObject, forKey: kCURRENTUSER) //RE ep.24 6mins update our user in our UserDefaults
+            UserDefaults.standard.synchronize() //RE ep.24 7mins
+            withBlock(true) //RE ep.24 7mins
+        }
+    }
+    
+}
+
+
+
+//MARK: OneSignal Methods
+func updateOneSignalId() { //RE ep.25 0mins
+    if FUser.currentUser() != nil { //RE ep.25 0min check if the user is logged in, otherwise dont do anything that can crash ur app
+        if let pushId = UserDefaults.standard.string(forKey: "OneSignalId") { //RE ep.25 1min check if we have pushId saved in our UserDefaults by AppDelegate
+            setOneSignalId(pushId: pushId) //RE ep.25 3mins
+            
+        } else { //RE ep.25 2min otherwise remove signal id
+            removeOneSignalId() //RE ep.25 3mins
+        }
+        
+    }
+    
+}
+
+func setOneSignalId(pushId: String) { //RE ep.25 2mins this will set our id
+    
+    updateCurrentUserOneSignalId(newId: pushId) //RE ep.25 4mins update/replace with with pushId
+    
+}
+
+func removeOneSignalId() { //RE ep.25 3mins
+    updateCurrentUserOneSignalId(newId: "") //RE ep.25 4mins update/replace with an empty string
+}
+
+func updateCurrentUserOneSignalId(newId: String) { //RE ep.25 3mins
+    print("Updating OneSignal Id with......... \(newId)")
+    updateCurrentUser(withValues: [kPUSHID: newId, kUPDATEDAT: dateFormatter().string(from: Date())]) { (success) in //RE ep.25 4mins call our updateCurrentUser method and update our "pushId" with our OneSignalId, and "updatedAt" with our current date using our dateFormatter method
+        print("One signal id was uupdated - \(success)") //RE ep.25 5mins. Now we can go back to our AppDelegate and call updateOneSignalId in startOneSignal
+    }
+}
+

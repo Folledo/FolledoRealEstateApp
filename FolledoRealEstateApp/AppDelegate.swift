@@ -113,8 +113,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 UserDefaults.standard.removeObject(forKey: "OneSignalId") //RE ep.23 16mins if we dont have then remove it
             }
             
+            print("One signal started... udating OneSignalId in Firebase")
         //save to our user object
-            
+            updateOneSignalId() //RE ep.25 6mins
             
         }
         

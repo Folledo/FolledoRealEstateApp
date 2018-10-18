@@ -12,6 +12,9 @@
 		C7A2A41C9C11192CC6937150 /* Pods_FolledoRealEstateAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8645F7B512F810725DFA665 /* Pods_FolledoRealEstateAppTests.framework */; };
 		CD1685552176A61100610EC0 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CD1685532176A61100610EC0 /* ProgressHUD.bundle */; };
 		CD1685562176A61100610EC0 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1685542176A61100610EC0 /* ProgressHUD.m */; };
+		CD1685582178246500610EC0 /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1685572178246500610EC0 /* RecentViewController.swift */; };
+		CD16855A217825AA00610EC0 /* PropertyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD168559217825AA00610EC0 /* PropertyCollectionViewCell.swift */; };
+		CD16855C2178295200610EC0 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16855B2178295100610EC0 /* Property.swift */; };
 		CD2A83EA2174125600474637 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2A83E92174125600474637 /* AppDelegate.swift */; };
 		CD2A83EF2174125600474637 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD2A83ED2174125600474637 /* Main.storyboard */; };
 		CD2A83F12174126400474637 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD2A83F02174126400474637 /* Assets.xcassets */; };
@@ -55,6 +58,9 @@
 		CD1685522176A61100610EC0 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		CD1685532176A61100610EC0 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
 		CD1685542176A61100610EC0 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
+		CD1685572178246500610EC0 /* RecentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentViewController.swift; sourceTree = "<group>"; };
+		CD168559217825AA00610EC0 /* PropertyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyCollectionViewCell.swift; sourceTree = "<group>"; };
+		CD16855B2178295100610EC0 /* Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		CD2A83E62174125600474637 /* FolledoRealEstateApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FolledoRealEstateApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD2A83E92174125600474637 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD2A83EE2174125600474637 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -166,10 +172,12 @@
 			children = (
 				CD16855021767D0700610EC0 /* FolledoRealEstateApp.entitlements */,
 				CD2A83E92174125600474637 /* AppDelegate.swift */,
-				CD8DCA112175059F00AD878C /* Object */,
-				CD8DCA102174FBF000AD878C /* Helpers */,
 				CD2A83ED2174125600474637 /* Main.storyboard */,
 				CD8DCA082174592200AD878C /* RegisterViewController.swift */,
+				CD1685572178246500610EC0 /* RecentViewController.swift */,
+				CD168559217825AA00610EC0 /* PropertyCollectionViewCell.swift */,
+				CD8DCA112175059F00AD878C /* Model */,
+				CD8DCA102174FBF000AD878C /* Helpers */,
 				CD2A83F02174126400474637 /* Assets.xcassets */,
 				CD2A83F22174126400474637 /* LaunchScreen.storyboard */,
 				CD2A83F52174126400474637 /* Info.plist */,
@@ -208,12 +216,13 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		CD8DCA112175059F00AD878C /* Object */ = {
+		CD8DCA112175059F00AD878C /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				CD8DCA0A2174D72C00AD878C /* FUser.swift */,
+				CD16855B2178295100610EC0 /* Property.swift */,
 			);
-			path = Object;
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,12 +449,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD16855C2178295200610EC0 /* Property.swift in Sources */,
 				CD8DCA092174592200AD878C /* RegisterViewController.swift in Sources */,
 				CD2A83EA2174125600474637 /* AppDelegate.swift in Sources */,
 				CD8DCA0721742F2300AD878C /* Constants.swift in Sources */,
 				CD1685562176A61100610EC0 /* ProgressHUD.m in Sources */,
 				CD8DCA0B2174D72C00AD878C /* FUser.swift in Sources */,
+				CD1685582178246500610EC0 /* RecentViewController.swift in Sources */,
 				CD8DCA0D2174DF0000AD878C /* Settings.swift in Sources */,
+				CD16855A217825AA00610EC0 /* PropertyCollectionViewCell.swift in Sources */,
 				CD8DCA0F2174FBE200AD878C /* Service.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
