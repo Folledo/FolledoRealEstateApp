@@ -15,6 +15,7 @@
 		CD1685582178246500610EC0 /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1685572178246500610EC0 /* RecentViewController.swift */; };
 		CD16855A217825AA00610EC0 /* PropertyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD168559217825AA00610EC0 /* PropertyCollectionViewCell.swift */; };
 		CD16855C2178295200610EC0 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16855B2178295100610EC0 /* Property.swift */; };
+		CD1D801E217AC9A800F81129 /* AddPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1D801D217AC9A800F81129 /* AddPropertyViewController.swift */; };
 		CD2A83EA2174125600474637 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2A83E92174125600474637 /* AppDelegate.swift */; };
 		CD2A83EF2174125600474637 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD2A83ED2174125600474637 /* Main.storyboard */; };
 		CD2A83F12174126400474637 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD2A83F02174126400474637 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		CD1685572178246500610EC0 /* RecentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentViewController.swift; sourceTree = "<group>"; };
 		CD168559217825AA00610EC0 /* PropertyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyCollectionViewCell.swift; sourceTree = "<group>"; };
 		CD16855B2178295100610EC0 /* Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
+		CD1D801D217AC9A800F81129 /* AddPropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPropertyViewController.swift; sourceTree = "<group>"; };
 		CD2A83E62174125600474637 /* FolledoRealEstateApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FolledoRealEstateApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD2A83E92174125600474637 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD2A83EE2174125600474637 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -174,8 +176,9 @@
 				CD2A83E92174125600474637 /* AppDelegate.swift */,
 				CD2A83ED2174125600474637 /* Main.storyboard */,
 				CD8DCA082174592200AD878C /* RegisterViewController.swift */,
-				CD1685572178246500610EC0 /* RecentViewController.swift */,
 				CD168559217825AA00610EC0 /* PropertyCollectionViewCell.swift */,
+				CD1685572178246500610EC0 /* RecentViewController.swift */,
+				CD1D801D217AC9A800F81129 /* AddPropertyViewController.swift */,
 				CD8DCA112175059F00AD878C /* Model */,
 				CD8DCA102174FBF000AD878C /* Helpers */,
 				CD2A83F02174126400474637 /* Assets.xcassets */,
@@ -459,6 +462,7 @@
 				CD8DCA0D2174DF0000AD878C /* Settings.swift in Sources */,
 				CD16855A217825AA00610EC0 /* PropertyCollectionViewCell.swift in Sources */,
 				CD8DCA0F2174FBE200AD878C /* Service.swift in Sources */,
+				CD1D801E217AC9A800F81129 /* AddPropertyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

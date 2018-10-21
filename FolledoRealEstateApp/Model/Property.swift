@@ -40,7 +40,7 @@ class Property: NSObject { //RE ep.30 3mins
     var storeRoom: Bool = false //RE ep.30 5mins
     var isFurnished: Bool = false //RE ep.30 5mins
     var isSold: Bool = false //RE ep.30 5mins
-    var inTopUntil: Date? //RE ep.30 5mins top ad until?
+    var inTopUntil: Date? //RE ep.30 5mins top ad until? manually created in our Property table in Backendless
     
     
     
@@ -112,7 +112,7 @@ class Property: NSObject { //RE ep.30 3mins
     class func fetchPropertiesWithClause(whereClause: String, completion: @escaping(_ properties: [Property?]) -> Void) { //RE ep.31 11mins search with whereClause
         let queryBuilder = DataQueryBuilder() //RE ep.31 12min
         queryBuilder!.setWhereClause(whereClause) //RE ep.31 12mins we want to tell Backendless what we want to seach, then sort it
-        queryBuilder!.setSortBy(["inTopUntil DESC"]) //RE ep.31 12mins
+        queryBuilder!.setSortBy(["inTopUntil DESC"]) //RE ep.31 12mins inTopUntil row is manually inputted in Backendless
         
         let dataStore = backendless!.data.of(Property().ofClass()) //RE ep.31 13mins
         dataStore!.find(queryBuilder, response: { (allProperties) in
