@@ -17,6 +17,9 @@ target 'FolledoRealEstateApp' do
   pod 'Backendless'
   pod 'OneSignal'
   
+  pod 'ImagePicker' #lecture 48 for picking multiple images
+  pod 'IDMPhotoBrowser' #lecture 48
+  
   
 
   target 'FolledoRealEstateAppTests' do

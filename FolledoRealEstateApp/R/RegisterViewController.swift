@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-
 class RegisterViewController: UIViewController {
     
     var phoneNumber: String? //RE ep.20 2mins
@@ -49,6 +48,7 @@ class RegisterViewController: UIViewController {
         self.view.addGestureRecognizer(tap)
     }
     
+    
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         self.view.endEditing(false)
     }
@@ -79,7 +79,7 @@ class RegisterViewController: UIViewController {
                 UserDefaults.standard.set(verificationID, forKey: kVERIFICATIONCODE) //RE ep.20 5mins set our verificationID we got from verifyPhoneNumber's completion handler to our kVERIFICATIONCODE
                 UserDefaults.standard.synchronize() //RE ep.20 5mins save it
             }
-        }
+        }//end of phoneNumber Textfield
         
         if codeTextField.text != "" { //RE ep.20 5mins
             FUser.registerUserWith(phoneNumber: self.phoneNumber!, verificationCode: codeTextField.text!) { (error, shouldLogin) in //RE ep.20 6mins
@@ -97,10 +97,7 @@ class RegisterViewController: UIViewController {
                     Service.toHomeTabController(on: self)
                     
                 }
-                
-                
             }
-            
         }
     }
     
@@ -111,7 +108,7 @@ class RegisterViewController: UIViewController {
         guard let lastName = lastNameTextField.text else { return } //RE ep.16 1min
         guard let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return } //RE ep.16 1min
         
-        if Service.isValidWithEmail(email: email) && Service.isValidWithName(name: firstName) && Service.isValidWithName(name: lastName) && password.count >= 6 { //checks if email, names, and password are valid
+        if Service.isValidWithEmail(email: email) && Service.isValidWithName(name: firstName) && Service.isValidWithName(name: lastName) && password.count >= 6 { //checks if email, names, and password are valid. If valid then we can register our FUser
             
             //spinner
             self.view.addSubview(spinner)
@@ -124,7 +121,7 @@ class RegisterViewController: UIViewController {
                 }
                 
                 //if no error registering user, then present the mainView
-                Service.toHomeTabController(on: self)
+                self.presentMainTabAndWelcome()
             }
         }
     }
@@ -134,7 +131,12 @@ class RegisterViewController: UIViewController {
 //        self.dismiss(animated: true, completion: nil)
     }
     
-    
+    func presentMainTabAndWelcome(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc:MainTabBarController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        vc.justStarted = true //to present our welcome alert
+        self.present(vc, animated: true, completion: nil)
+    }
     
     
     

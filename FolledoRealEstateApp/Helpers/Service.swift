@@ -30,7 +30,27 @@ class Service { //FB ep.29 1mins
     
     static func toHomeTabController(on: UIViewController) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "MainTabBarController")
+        let vc: MainTabBarController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        on.present(vc, animated: true, completion: nil)
+    }
+    
+    static func toRegisterController(on: UIViewController) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "RegisterController")
+        on.present(vc, animated: true, completion: nil)
+    }
+    
+    static func toRecentTab(on: UIViewController) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc: MainTabBarController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        vc.selectedIndex = 0
+        on.present(vc, animated: true, completion: nil)
+    }
+    
+    static func toAddPropertyTab(on: UIViewController) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc: MainTabBarController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        vc.selectedIndex = 2
         on.present(vc, animated: true, completion: nil)
     }
     

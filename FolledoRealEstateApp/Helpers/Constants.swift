@@ -14,8 +14,14 @@ import FirebaseDatabase
 var backendless = Backendless.sharedInstance() //RE ep.6
 var firDatabase = Database.database().reference() //RE ep.15 11mins
 
+//uiPickers
+let propertyTypes = ["Select", "Apartment", "House", "Villa", "Land", "Flat", "Mansion", "Palace", "Hotel"] //RE ep.57 10mins
+let advertismentType = ["Select", "Sale", "Rent", "Exchange"] //RE ep.57 10mins
+
+
 //Ids and Keys
 public let kONESIGNALAPPID = "e3258093-1466-4ddd-acde-667495920a4b" //RE ep.6 7mins
+public let kFILEREFERENCE = "gs://realestateapp-50167.appspot.com" //RE ep.52 12mins for our images reference from Firebase Storage
 
 //FUser //RE ep.11 12mins
 public let kOBJECTID = "objectId" //RE ep.11 12mins

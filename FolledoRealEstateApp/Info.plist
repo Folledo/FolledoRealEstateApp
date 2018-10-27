@@ -52,5 +52,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Real Estate wants to use the Camera for the properties</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Real Estate wants to use the Media Library for your images</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Folledo needs to access your location</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Real Estate wants to use Photo Library for your images</string>
 </dict>
 </plist>

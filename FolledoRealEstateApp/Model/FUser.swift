@@ -136,6 +136,7 @@ class FUser { //RE ep.11 1mins
             
             //save FUser to UserDefaults so we have it on our device
             saveUserLocally(fUser: fUser) //RE ep.15 10mins
+            
             //save FUser to Firebase Database so we can access the user with all the information
             saveUserInBackground(fUser: fUser) //RE ep.15 14mins
             
@@ -175,7 +176,7 @@ class FUser { //RE ep.11 1mins
                 if user != nil && user?.firstName != "" { //RE ep.18 3mins check if user is nil and user has a first name, provides extra protection
                     
                 //we have a user, login the user
-                    saveUserLocally(fUser: user!) //RE ep.18 4mins save user in our UserDefaults. We dont need to save in background because we are already getting/fetching it
+                    saveUserLocally(fUser: user!) //RE ep.18 4mins save user in our UserDefaults. We dont need to save in background because we are already getting/fetching the user
                     completion(error, true) //RE ep.18 call our callback function to exit and finally input the error or shouldLogin to true
                     
                     

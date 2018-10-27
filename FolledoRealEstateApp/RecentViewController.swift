@@ -8,13 +8,13 @@
 
 import UIKit
 
-class RecentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout { //RE ep.29 0mins //RE ep.32 0mins UICVDelegate, UICVDataSource, UICVFlowLayout added
+class RecentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PropertyCollectionViewCellDelegate { //RE ep.29 0mins //RE ep.32 0mins UICVDelegate, UICVDataSource, UICVFlowLayout added //RE ep.45 7mins customized protocol name PropertyCollectionViewCellDelegate is added
     
     var properties: [Property] = [] //RE ep.32 1min
     
     var numberOfPropertiesTextField: UITextField? //RE ep.43 3mins
     
-    
+
     @IBOutlet weak var collectionView: UICollectionView! //RE ep.29 3mins
     
     
@@ -44,7 +44,7 @@ class RecentViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { //RE ep.36 4mins tell what cell to represent, we'll reuse the cell from storyboard
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "propertyCell", for: indexPath) as! PropertyCollectionViewCell //RE ep.32 5mins since this was a customed cell, we have to return as PropertyCollectionViewCell
-        
+        cell.delegate = self //RE ep.46 4mins for our cell's start/menu button protocol
         cell.generateCell(property: properties[indexPath.row]) //RE ep.32 10mins call and generateCell from our arrays of properties
         
         return cell //RE ep.32 6mins
@@ -98,6 +98,48 @@ class RecentViewController: UIViewController, UICollectionViewDelegate, UICollec
         alert.addAction(updateAction) //RE ep.43 7mins
         self.present(alert, animated: true, completion: nil) //RE ep.43 7mins
     } //RE end of mixerButtonTapped
+    
+    
+//MARK: PropertyCollectionViewCellDelegate methods
+    func didClickStarButton(property: Property) { //RE ep.45 7mins our cell is telling that the star button is clicked
+
+        if FUser.currentUser() != nil { //RE ep.45 8mins check if we have a user
+            let user = FUser.currentUser()! //RE ep.45 9mins
+            if user.favoriteProperties.contains(property.objectId!) { //RE ep.45 9mins check if the property is in user's favoriteProperties array
+                let index = user.favoriteProperties.index(of: property.objectId!) //RE ep.45 10mins get the index of that objectId in our array
+                user.favoriteProperties.remove(at: index!) //RE ep.45 11mins with the index reference, we can remove the objectId from our favoriteProp
+                
+                updateCurrentUser(withValues: [kFAVORIT: user.favoriteProperties]) { (success) in //RE ep.45 11mins update our current user's favoriteProperties
+                    if !success { //RE ep.46 12mins if not success
+                        print("Error removing favorite") //RE ep.46 0min
+                        Service.presentAlert(on: self, title: "Error removing favorite", message: "Please try again")
+                    } else { //RE ep.46 no error
+                        self.collectionView.reloadData() //RE ep.46 0mins we need to update our startButton of our collectionView
+                        ProgressHUD.show("Removed from the list")
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
+                            ProgressHUD.dismiss()
+                        })
+                    }
+                }
+                
+            } else { //RE ep.45 9mins its not in our list of favorite, so we add it
+                user.favoriteProperties.append(property.objectId!) //RE ep.46 2mins
+                
+                updateCurrentUser(withValues: [kFAVORIT: user.favoriteProperties]) { (success) in //RE ep.46 1min
+                    if !success { //RE ep.46 1min if not success
+                        Service.presentAlert(on: self, title: "Error adding property", message: "Please try again")
+                    } else { //RE ep.46 1min
+                        self.collectionView.reloadData() //RE ep.46 2min
+                        ProgressHUD.showSuccess("Added to the list") //RE ep.46 2mins
+                    }
+                }
+                
+            }
+            
+        } else { //RE ep.45 8mins no user so show login/register screen
+            
+        }
+    }
     
 
 }
