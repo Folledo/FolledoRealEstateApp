@@ -125,6 +125,7 @@ class AddPropertyViewController: UIViewController, ImagePickerDelegate, UITextFi
             newProperty.ownerId = user!.objectId //RE ep.40 1min
             newProperty.title = titleTextField.text! //RE ep.40 2mins
             newProperty.advertisementType = advertismentTypeTextField.text! //RE ep.40 2mins
+            newProperty.propertyType = propertyTypeTextField.text!
             newProperty.price = Int(priceTextField.text!)! //RE ep.40 3mins
             
             

@@ -54,7 +54,11 @@ class RecentViewController: UIViewController, UICollectionViewDelegate, UICollec
 //MARK: CollectionView Delegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) { //RE ep.33 1min this is when user taps on a cell
         
+        let propertyView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "propertyController") as! PropertyViewController //RE ep.69 6mins our propertyViewController
         
+        propertyView.property = properties[indexPath.row] //RE ep.73 here we are passing the property of our selected property from our properties array
+        
+        self.present(propertyView, animated: true, completion: nil) //RE ep.69 6mins
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { //RE ep.33 3mins

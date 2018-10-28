@@ -10,6 +10,7 @@
 		13516DF09D2310A0B534B418 /* Pods_FolledoRealEstateAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC3D5A169725B48C3CA905 /* Pods_FolledoRealEstateAppUITests.framework */; };
 		58963E844365A453C7EC4539 /* Pods_FolledoRealEstateApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384936EB6F597481FE010031 /* Pods_FolledoRealEstateApp.framework */; };
 		C7A2A41C9C11192CC6937150 /* Pods_FolledoRealEstateAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8645F7B512F810725DFA665 /* Pods_FolledoRealEstateAppTests.framework */; };
+		CD11BD43218549530083729B /* PropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11BD42218549530083729B /* PropertyViewController.swift */; };
 		CD11D4A52182150400C50166 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD11D4A42182150400C50166 /* CoreLocation.framework */; };
 		CD12861E2184142F00DD4BB8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD12861D2184142F00DD4BB8 /* MapViewController.swift */; };
 		CD1685552176A61100610EC0 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CD1685532176A61100610EC0 /* ProgressHUD.bundle */; };
@@ -61,6 +62,7 @@
 		5A2CEDDD1D12EE5494AF8CCA /* Pods-FolledoRealEstateApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FolledoRealEstateApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FolledoRealEstateApp/Pods-FolledoRealEstateApp.release.xcconfig"; sourceTree = "<group>"; };
 		65FC3D5A169725B48C3CA905 /* Pods_FolledoRealEstateAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FolledoRealEstateAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		922DF842D2596F87EFF0D599 /* Pods-FolledoRealEstateApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FolledoRealEstateApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FolledoRealEstateApp/Pods-FolledoRealEstateApp.debug.xcconfig"; sourceTree = "<group>"; };
+		CD11BD42218549530083729B /* PropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyViewController.swift; sourceTree = "<group>"; };
 		CD11D4A42182150400C50166 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CD12861D2184142F00DD4BB8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		CD16855021767D0700610EC0 /* FolledoRealEstateApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FolledoRealEstateApp.entitlements; sourceTree = "<group>"; };
@@ -203,10 +205,11 @@
 				CD2A83E92174125600474637 /* AppDelegate.swift */,
 				CD354F02217D6355006C2388 /* MainTabBarController.swift */,
 				CD2A83ED2174125600474637 /* Main.storyboard */,
-				CD12861D2184142F00DD4BB8 /* MapViewController.swift */,
-				CD168559217825AA00610EC0 /* PropertyCollectionViewCell.swift */,
 				CD1685572178246500610EC0 /* RecentViewController.swift */,
 				CD1D801D217AC9A800F81129 /* AddPropertyViewController.swift */,
+				CD168559217825AA00610EC0 /* PropertyCollectionViewCell.swift */,
+				CD12861D2184142F00DD4BB8 /* MapViewController.swift */,
+				CD11BD42218549530083729B /* PropertyViewController.swift */,
 				CD12861F21841A7500DD4BB8 /* Register */,
 				CD8DCA112175059F00AD878C /* Model */,
 				CD8DCA102174FBF000AD878C /* Helpers */,
@@ -493,6 +496,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD16855C2178295200610EC0 /* Property.swift in Sources */,
+				CD11BD43218549530083729B /* PropertyViewController.swift in Sources */,
 				CD8DCA092174592200AD878C /* RegisterViewController.swift in Sources */,
 				CD354F03217D6355006C2388 /* MainTabBarController.swift in Sources */,
 				CD2A83EA2174125600474637 /* AppDelegate.swift in Sources */,
