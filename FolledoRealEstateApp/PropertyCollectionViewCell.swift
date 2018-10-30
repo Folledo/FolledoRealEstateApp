@@ -46,7 +46,7 @@ class PropertyCollectionViewCell: UICollectionViewCell { //RE ep.29 5mins
         bathroomLabel.text = "\(property.numberOfBathrooms)" //RE ep.32 8mins
         parkingLabel.text = "\(property.parking)" //RE ep.32 8mins
         
-        priceLabel.text = "\(property.price)" //RE ep.32 9mins
+        priceLabel.text = "$\(property.price)" //RE ep.32 9mins
         priceLabel.sizeToFit() //RE ep.32 9mins resizes view to fit
         
     //top ad

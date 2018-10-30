@@ -35,6 +35,7 @@
 		CD8DCA0B2174D72C00AD878C /* FUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8DCA0A2174D72C00AD878C /* FUser.swift */; };
 		CD8DCA0D2174DF0000AD878C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8DCA0C2174DF0000AD878C /* Settings.swift */; };
 		CD8DCA0F2174FBE200AD878C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8DCA0E2174FBE200AD878C /* Service.swift */; };
+		CDEE61862187664B00CC43FB /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEE61852187664B00CC43FB /* FavoriteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		CD8DCA0A2174D72C00AD878C /* FUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FUser.swift; sourceTree = "<group>"; };
 		CD8DCA0C2174DF0000AD878C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CD8DCA0E2174FBE200AD878C /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		CDEE61852187664B00CC43FB /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		DA9DB6F69F4F7570AFDDF12B /* Pods-FolledoRealEstateAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FolledoRealEstateAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FolledoRealEstateAppTests/Pods-FolledoRealEstateAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		F8645F7B512F810725DFA665 /* Pods_FolledoRealEstateAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FolledoRealEstateAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -210,6 +212,7 @@
 				CD168559217825AA00610EC0 /* PropertyCollectionViewCell.swift */,
 				CD12861D2184142F00DD4BB8 /* MapViewController.swift */,
 				CD11BD42218549530083729B /* PropertyViewController.swift */,
+				CDEE61852187664B00CC43FB /* FavoriteViewController.swift */,
 				CD12861F21841A7500DD4BB8 /* Register */,
 				CD8DCA112175059F00AD878C /* Model */,
 				CD8DCA102174FBF000AD878C /* Helpers */,
@@ -501,6 +504,7 @@
 				CD354F03217D6355006C2388 /* MainTabBarController.swift in Sources */,
 				CD2A83EA2174125600474637 /* AppDelegate.swift in Sources */,
 				CD8DCA0721742F2300AD878C /* Constants.swift in Sources */,
+				CDEE61862187664B00CC43FB /* FavoriteViewController.swift in Sources */,
 				CD1685562176A61100610EC0 /* ProgressHUD.m in Sources */,
 				CD8DCA0B2174D72C00AD878C /* FUser.swift in Sources */,
 				CD1685582178246500610EC0 /* RecentViewController.swift in Sources */,

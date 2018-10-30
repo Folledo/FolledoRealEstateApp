@@ -63,7 +63,7 @@ class RecentViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize { //RE ep.33 3mins
         
-        return CGSize(width: collectionView.bounds.size.width, height: 280) //RE ep.33 3mins
+        return CGSize(width: collectionView.bounds.size.width, height: 320) //RE ep.33 3mins
     }
     
 //MARK: Load Properties

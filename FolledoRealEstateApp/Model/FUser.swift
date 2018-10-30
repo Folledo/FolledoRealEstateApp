@@ -276,6 +276,17 @@ func updateCurrentUser(withValues: [String : Any], withBlock: @escaping(_ succes
 }
 
 
+func isUserLoggedIn(viewController: UIViewController) -> Bool { //RE ep.83 0min
+    
+    if FUser.currentUser() != nil { //RE ep.83 1min
+        return true
+    } else { //RE ep.83 2min if no user, show registerController
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "registerController") as! RegisterViewController //RE ep.83 2mins
+        viewController.present(vc, animated: true, completion: nil) //RE ep.83 2mins
+        return false
+    }
+}
+
 
 //MARK: OneSignal Methods
 func updateOneSignalId() { //RE ep.25 0mins
