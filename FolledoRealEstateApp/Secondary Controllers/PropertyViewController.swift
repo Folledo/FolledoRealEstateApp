@@ -8,12 +8,15 @@
 
 import UIKit
 import MapKit
+import IDMPhotoBrowser //RE ep.102 imageTapped
 
 class PropertyViewController: UIViewController { //RE ep.69 5mins fileis created
     
     var property: Property! //RE ep.72 4mins our property that has to have a value
     var propertyCoordinate: CLLocationCoordinate2D? //RE ep.72 4mins
     var imageArray: [UIImage] = [] //RE ep.72 7mins
+    
+    var tapGesture: UIGestureRecognizer! //RE ep.102 0mins for our image tap
     
     
     @IBOutlet weak var callBackButton: UIButton! //RE ep.71
@@ -57,6 +60,10 @@ class PropertyViewController: UIViewController { //RE ep.69 5mins fileis created
         getPropertyImages() //RE ep.73 1min
         setupUI() //RE ep.75 0min
         
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped)) //RE ep.102 1min
+        imageScrollView.addGestureRecognizer(tapGesture)
+        
+        
         mainScrollView.contentSize = CGSize(width: view.frame.width, height: 950) //RE ep.72 2mins
         
         
@@ -73,6 +80,17 @@ class PropertyViewController: UIViewController { //RE ep.69 5mins fileis created
     }
     
 //MARK: Helpers
+    @objc func imageTapped() { //RE ep.102 2mins
+//        print("TAP")
+        let photos = IDMPhoto.photos(withImages: imageArray) //RE ep.102 4mins
+        let browser = IDMPhotoBrowser(photos: photos)! //RE ep.102 4mins
+        
+        browser.setInitialPageIndex(0) //RE ep.102 5mins
+        self.present(browser, animated: true, completion: nil) //RE ep.102 5mins
+        
+    }
+    
+    
     func getPropertyImages(){ //RE ep.72 5mins
         if property.imageLinks != "" && property.imageLinks != nil { //RE ep.72 5mins
             downloadImages(urls: property.imageLinks!) { (images) in //RE ep.72 6mins if there is imageLinks then downloadImages using those links and get our image and store them in an array
@@ -112,7 +130,7 @@ class PropertyViewController: UIViewController { //RE ep.69 5mins fileis created
         
     //set properties
         propertyTitleLabel.text = property.title! //RE ep.75 2mins
-        priceLabel.text = "\(property.price)" //RE ep.75 2mins
+        priceLabel.text = "$\(property.price)" //RE ep.75 2mins
         shortInformationLabel.text = "\(property.size) m² - \(property.numberOfRooms) Bedroom(s)" //RE ep.75 3mins
         propertyTypeLabel.text = property.propertyType //RE ep.75 4mins
         furnishedLabel.text = property.isFurnished ? "YES" : "NO" //RE ep.75 4mins YES if isFurnished is true

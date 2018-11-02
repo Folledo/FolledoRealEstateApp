@@ -37,6 +37,7 @@ class PropertyCollectionViewCell: UICollectionViewCell { //RE ep.29 5mins
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView! //RE ep.29 14mins
     
     
+    
 //generateCell
     func generateCell(property: Property) { //RE ep.30 0mins generate cell will have title, checks if its topAd or Sold property, with image, rooms, bathrooms, parking, and price //RE ep.32 6mins property type changed from String to Property class
         self.property = property //RE ep.42 1min
@@ -94,4 +95,8 @@ class PropertyCollectionViewCell: UICollectionViewCell { //RE ep.29 5mins
         
     }
     
+    @IBAction func menuButtonTapped(_ sender: Any) { //RE ep.84 9mins replaced the starButton's position in the cell
+        delegate!.didClickMenuButton!(property: property) //RE ep.87 1min
+    }
 }
+

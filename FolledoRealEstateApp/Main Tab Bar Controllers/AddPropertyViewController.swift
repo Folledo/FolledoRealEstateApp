@@ -9,9 +9,11 @@
 import UIKit
 import ImagePicker //RE ep.48 0min new pods and dont forget to go to Project -> Build Phases -> Link Binary With Libraries and ADD IDMPhotoBrowser and ImagePicker
 
-class AddPropertyViewController: UIViewController, ImagePickerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, CLLocationManagerDelegate, MapViewDelegate { //RE ep.36 11mins //RE ep.48 ImagePickerDelegate was added //RE ep.56 3mins tfDelegate, UIPickerViewDelegate/datasource, and CLLocationManagerDelegate for UIPickers coming out from a textfield. Then tracking with CLLocationManagerDelegate Dontforget to go to Project -> Build Phase -> Link with Binary and add Corelocation //RE ep.64 8mins MapViewDelegate is added
+class AddPropertyViewController: UIViewController, ImagePickerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, CLLocationManagerDelegate, MapViewDelegate, ImageGalleryViewControllerDelegate { //RE ep.36 11mins //RE ep.48 ImagePickerDelegate was added //RE ep.56 3mins tfDelegate, UIPickerViewDelegate/datasource, and CLLocationManagerDelegate for UIPickers coming out from a textfield. Then tracking with CLLocationManagerDelegate Dontforget to go to Project -> Build Phase -> Link with Binary and add Corelocation //RE ep.64 8mins MapViewDelegate is added //RE ep.101 1mins ImageGalleryVCDelegate
     
     var user: FUser? //RE ep.39 4mins
+    var property: Property? //RE ep.89 8mins an optional property
+    
     var propertyImages: [UIImage] = [] //RE ep.50 0min images for our property initialized as empty
     
     var yearArray: [Int] = [] //RE ep.56 6mins
@@ -24,7 +26,14 @@ class AddPropertyViewController: UIViewController, ImagePickerDelegate, UITextFi
     var locationCoordinates: CLLocationCoordinate2D? //RE ep.56 8mins
     var activeField: UITextField? //RE ep.56 9mins
     
+    var timer = Timer() //for animation
     
+    @IBOutlet weak var illustrationImageView: UIImageView!
+    
+    
+    @IBOutlet weak var cameraButton: UIButton! //RE ep.90 5mins to edit the images button
+    @IBOutlet weak var vcTitleLabel: UILabel! //RE ep.90 3mins to change the vc's title
+    @IBOutlet weak var backButton: UIButton! //RE ep.89 7mins
     
     @IBOutlet weak var scrollView: UIScrollView! //RE ep.38 1min
     @IBOutlet weak var topView: UIView! //RE ep.37 1min
@@ -93,18 +102,55 @@ class AddPropertyViewController: UIViewController, ImagePickerDelegate, UITextFi
         datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged) //RE ep.60 1min out our pickerView delegate doesnt apply to our datePicker so we have to create our own method
         
         
+        if property != nil { //RE ep.90 0mins if we have porperty, EDIT PROPERTY
+            setupUIForEdit() //RE ep.90 1mins
+            
+        }
+        
+        
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(startImageIncreaseThenDecrease), userInfo: nil, repeats: true) //start animation forever
+        timer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(rotateImage), userInfo: nil, repeats: true)
+        
+        
         
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
 //        self.scrollView.addGestureRecognizer(tap)
     } //end of viewDidLoad
     
-    
-    override func viewWillAppear(_ animated: Bool) { //RE ep.61 10mins
+    @objc func startImageIncreaseThenDecrease() { //animation
+        UIView.animate(withDuration: 1.0, animations: {() -> Void in
+            self.illustrationImageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        }, completion: {(_ finished: Bool) -> Void in
+            UIView.animate(withDuration: 2.0, animations: {() -> Void in
+                self.illustrationImageView.transform = CGAffineTransform(scaleX: 2, y: 2)
+            })
+        })
+    }
+    @objc func rotateImage() {
+        UIView.animate(withDuration: 1) {
+            self.illustrationImageView.transform = CGAffineTransform(rotationAngle: (180 * .pi) / 180.0)
+        }
         
+    }
+//    @objc func rotate1(imageView: UIImageView, aCircleTime: Double) { //CABasicAnimation
+//
+//        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+//        rotationAnimation.fromValue = 0.0
+//        rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
+//        rotationAnimation.duration = aCircleTime
+//        rotationAnimation.repeatCount = .infinity
+//        imageView.layer.add(rotationAnimation, forKey: nil)
+//    }
+    override func viewWillAppear(_ animated: Bool) { //RE ep.61 10mins
+        if !isUserLoggedIn(viewController: self) { //RE ep.90 0mins check if not logged in
+            return //RE ep.90 0mins do nothing
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) { //RE ep.61 10mins if view disappears
         locationManagerStop() //RE ep.61 10mins stop locationManager
+        self.illustrationImageView.stopAnimating()
+        self.timer.invalidate()
     }
     
     
@@ -117,8 +163,14 @@ class AddPropertyViewController: UIViewController, ImagePickerDelegate, UITextFi
     func save() { //RE ep.39 6mins
         //check first before we
         if titleTextField.text != "" && referenceCodeTextField.text != "" && advertismentTypeTextField.text != "" && propertyTypeTextField.text != "" && priceTextField.text != "" { //RE ep.39 7mins if theyre empty dont continue
+            
         //create a new property
-            let newProperty = Property() //RE ep.40 0mins create a new Property with info we have
+            var newProperty = Property() //RE ep.93 0mins create a new Property with info we have
+            
+            if property != nil { //RE ep.93 1min if we have property... equal our new property to our property, which can only have a value if we are in this VC to EDIT
+                newProperty = property! //RE ep.93 1min
+            }
+            
             ProgressHUD.show("Saving...") //RE ep.56 1min
             
             newProperty.referenceCode = referenceCodeTextField.text! //RE ep.40 1mins
@@ -208,7 +260,26 @@ class AddPropertyViewController: UIViewController, ImagePickerDelegate, UITextFi
     
     
 //MARK: IBActions
+    
+    @IBAction func backButtonTapped(_ sender: Any) { //RE ep.89 7mins
+        self.dismiss(animated: true, completion: nil) //RE ep.93 0mins
+    }
+    
+    
     @IBAction func cameraButtonTapped(_ sender: Any) { //RE ep.38
+        
+        if property != nil { //RE ep.94 2mins first check if we're in edit mode
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "imageGalleryController") as! ImageGalleryViewController //RE ep.94 3mins
+            
+            vc.property = property //RE ep.97 6mins pass our property we're editing to the Vc's property
+            vc.delegate = self //RE ep.101 2mins need to add this ImageGalleryDelegate for saving images
+            
+            present(vc, animated: true, completion: nil) //RE ep.94 3mind
+            return //RE ep.94 4mins necessary so it wont run the rest of this method's code.
+            
+        }
+        
+        
         let imagePickerController = ImagePickerController() //RE ep.48 10mins
         imagePickerController.delegate = self //RE ep.48 10mins
         imagePickerController.imageLimit = kMAXIMAGENUMBER //RE ep.48 11mins maxImageNumber = 10
@@ -436,6 +507,66 @@ class AddPropertyViewController: UIViewController, ImagePickerDelegate, UITextFi
         self.locationCoordinates = coordinate //RE ep.64 9mins so we're passing the coordinate we received from mapView to our locationCoordinates
         print("Coordinates = \(coordinate)")
     }
+    
+    
+//MARK: EditProperties
+    func setupUIForEdit() { //RE ep.90 1min
+        self.vcTitleLabel.text = "Edit Property" //RE ep.90 3mins
+        self.cameraButton.setImage(UIImage(named: "Picture"), for: .normal) //RE ep.90 5mins
+        self.backButton.isHidden = false //RE ep.90 8mins so we can unhide our button and go back
         
+    //fill the values
+        referenceCodeTextField.text = property!.referenceCode //RE ep.90 8mins
+        titleTextField.text = property!.title //RE ep.90 8mins
+        advertismentTypeTextField.text = property!.advertisementType //RE ep.90 8mins
+        priceTextField.text = "\(property!.price)" //RE ep.90 8mins
+        propertyTypeTextField.text = property!.propertyType //RE ep.90 8mins
+        
+    //tf
+        balconySizeTextField.text = "\(property!.balconySize)" //RE ep.90 8mins
+        bathroomsTextField.text = "\(property!.numberOfBathrooms)" //RE ep.90 8mins
+        buildYearTextField.text = "\(property!.buildYear ?? "" )" //RE ep.90 8mins
+        parkingTextField.text = "\(property!.parking)" //RE ep.90 8mins
+        roomsTextField.text = "\(property!.numberOfRooms)" //RE ep.90 8mins
+        propertySizeTextField.text = "\(property!.size)" //RE ep.90 8mins
+        availableFromTextField.text = "\(property!.availableFrom ?? "" )" //RE ep.90 8mins
+        floorTextField.text = "\(property!.floor)" //RE ep.90 8mins
+        desciptionTextView.text = "\(property!.propertyDescription ?? "" )" //RE ep.90 8mins
+        addressTextField.text = "\(property!.address ?? "" )" //RE ep.90 8mins
+        cityTextField.text = "\(property!.city ?? "" )" //RE ep.90 8mins
+        countryTextField.text = "\(property!.country ?? "" )" //RE ep.90 8mins
+        
+    //switch values
+        titleDeedSwitchValue = property!.titleDeeds //RE ep.91 3mins
+        centralHeatingSwitchValue = property!.centralHeating //RE ep.91 3mins
+        solarWaterHeatingSwitchValue = property!.solarWaterHeating //RE ep.91 3mins
+        storeRoomSwitchValue = property!.storeRoom //RE ep.91 3mins
+        airconditionerSwitchValue = property!.airconditioner //RE ep.91 3mins
+        furnishedSwitchValue = property!.isFurnished //RE ep.91 3mins
+        
+        if property!.latitude != 0.0 && property!.longitude != 0.0 { //RE ep.91 3mins check if we have location
+            locationCoordinates?.latitude = property!.latitude //RE ep.91 4mins
+            locationCoordinates?.longitude = property!.longitude //RE ep.91 4mins
+        }
+        
+        updateSwitches() //RE ep.91 5mins
+        
+    }
+    
+    func updateSwitches() { //RE ep.91 5mins
+        titleDeedSwitch.isOn = titleDeedSwitchValue //RE ep.91 5mins
+        centralHeatingSwitch.isOn = centralHeatingSwitchValue //RE ep.91 5mins
+        solarWaterHeatingSwitch.isOn = solarWaterHeatingSwitchValue //RE ep.91 5mins
+        storeRoomSwitch.isOn = storeRoomSwitchValue //RE ep.91 5mins
+        airconditionerSwitch.isOn = airconditionerSwitchValue //RE ep.91 5mins
+        furnishedSwitch.isOn = furnishedSwitchValue//RE ep.91 5mins
+    }
+    
+//MARK: ImageGalleryDelegate
+    func didFinishEditingImages(allImages: [UIImage]) {
+         //RE ep.101 0mins dont forget to delegate to self in cameraButtonTapped. Now that we receive  all our images, we have to set it to our existing images. propertyImages
+        self.propertyImages = allImages //RE ep.101 4mins
+        
+    }
     
 }
