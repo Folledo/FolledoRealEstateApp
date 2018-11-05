@@ -77,9 +77,14 @@ class PropertyCollectionViewCell: UICollectionViewCell { //RE ep.29 5mins
         if property.imageLinks != "" && property.imageLinks != nil { //RE ep.42 3mins check we have link for our images
         //download images
             downloadImages(urls: property.imageLinks!) { (images) in //RE ep.55 0mins
-                self.loadingIndicator.stopAnimating() //RE ep.55 1mins stop animating after downloading our images
-                self.loadingIndicator.isHidden = true //RE ep.55 1mins
-                self.imageView.image = images.first! //RE ep.55 2mins
+               
+                DispatchQueue.main.async {
+                    
+                
+                    self.loadingIndicator.stopAnimating() //RE ep.55 1mins stop animating after downloading our images
+                    self.loadingIndicator.isHidden = true //RE ep.55 1mins
+                    self.imageView.image = images.first! //RE ep.55 2mins
+                }
             }
             
         } else { //RE ep.42 4mins

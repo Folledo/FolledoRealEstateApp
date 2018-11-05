@@ -196,7 +196,42 @@ class FUser { //RE ep.11 1mins
     }
     
     
+//MARK: Login
+    class func loginUserWith(email: String, password: String, withBlock: @escaping (_ error: Error?) -> Void) { //RE ep.110 1mins
+        print("3")
+        Auth.auth().signIn(withEmail: email, password: password) { (firUser, error) in //RE ep.110 2mins
+            print("4")
+            if error != nil { //RE ep.110 3mins
+                withBlock(error) //RE ep.110 3mins
+            } else { //RE ep.110 3mins
+                print("5")
+                fetchUserWith(userId: firUser!.user.uid, completion: { (fUser) in //RE ep.110 //4mins after signing in, we need to download these user and save it to our local UserDefaults //5mins this method takes a user.uid, finds the user we want, converts it to FUser and returns it, so now we can save them
+                    saveUserLocally(fUser: fUser!) //RE ep.110 7mins
+                    print("6")
+                })
+            }
+        }
+    }
     
+    
+//MARK: Logout
+    class func logOutCurrentUser(withBlock: (_ success: Bool) -> Void) { //RE ep.109 2mins logout the current user
+        print("Logging outttt...")
+        UserDefaults.standard.removeObject(forKey: "OneSignalId") //RE ep.109 3mins remove OneSignalId from UserDefaults
+        removeOneSignalId() //RE ep.109 4mins updates id with empty string ""
+        
+        UserDefaults.standard.removeObject(forKey: kCURRENTUSER) //RE ep.109 3mins
+        UserDefaults.standard.synchronize() //RE ep.109 5mins save the changes in UserDefaults. This order is important so it wont crash
+        
+        do { //RE ep.109 5mins do a try-catch, it will crash
+            try Auth.auth().signOut() //RE ep.109 6mins
+            withBlock(true) //RE ep.109 6mins
+            
+        } catch let error as NSError { //RE ep.109 5mins
+            print("error logging out \(error.localizedDescription)") //RE ep.109 6mins
+            withBlock(false) //RE ep.109 7mins false completionBlock because our logout is not succcessful
+        }
+    }
     
     
     
@@ -206,12 +241,14 @@ class FUser { //RE ep.11 1mins
 func saveUserInBackground(fUser: FUser) { //RE ep.15 10mins
     let ref = firDatabase.child(kUSER).child(fUser.objectId) //RE ep.15 13mins, kUSER = "User". objectId is the user UID
     ref.setValue(userDictionaryFrom(user: fUser)) //RE ep.15 14mins Database's "User" will have the user's uid as its child, and then set the values of the userDictionary to the child uid/objectId //Overall, creates a reference for our user in our Database
+    print("Finished saving user \(fUser.fullName) in Firebase")
 }
 
 //save locally
 func saveUserLocally(fUser: FUser) { //RE ep.15 9mins
     UserDefaults.standard.set(userDictionaryFrom(user: fUser), forKey: kCURRENTUSER) //RE ep.15 9mins this method takes the user converted to an NSDictionary and puts forKey: kCURRENTUSER
     UserDefaults.standard.synchronize() //RE ep.15 10mins so it will save our objects to our UserDefaults in background on the device
+    print("Finished saving user \(fUser.fullName) locally...")
 }
 
 
@@ -234,10 +271,7 @@ func fetchUserWith(userId: String, completion: @escaping (_ user: FUser?) -> Voi
         } else { //RE ep.18 0min snapshot dont exist
             completion(nil) //RE ep.18 0min we dont have a user
         }
-        
-        
     }
-    
 }
 
 
@@ -281,7 +315,7 @@ func isUserLoggedIn(viewController: UIViewController) -> Bool { //RE ep.83 0min
     if FUser.currentUser() != nil { //RE ep.83 1min
         return true
     } else { //RE ep.83 2min if no user, show registerController
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "registerController") as! RegisterViewController //RE ep.83 2mins
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RegisterController") as! RegisterViewController //RE ep.83 2mins
         viewController.present(vc, animated: true, completion: nil) //RE ep.83 2mins
         return false
     }
@@ -303,9 +337,7 @@ func updateOneSignalId() { //RE ep.25 0mins
 }
 
 func setOneSignalId(pushId: String) { //RE ep.25 2mins this will set our id
-    
     updateCurrentUserOneSignalId(newId: pushId) //RE ep.25 4mins update/replace with with pushId
-    
 }
 
 func removeOneSignalId() { //RE ep.25 3mins

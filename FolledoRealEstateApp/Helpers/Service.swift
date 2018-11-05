@@ -54,6 +54,14 @@ class Service { //FB ep.29 1mins
         on.present(vc, animated: true, completion: nil)
     }
     
+    static func toMyPropertiesTab(on: UIViewController) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc: MainTabBarController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        vc.selectedIndex = 4 //index of MyProperties
+        on.present(vc, animated: true, completion: nil)
+    }
+    
+    
     static func clearUserDefaults() {
         UserDefaults.standard.set(nil, forKey: "name")
     }

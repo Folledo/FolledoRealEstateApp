@@ -15,6 +15,7 @@
 		CD11BD43218549530083729B /* PropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD11BD42218549530083729B /* PropertyViewController.swift */; };
 		CD11D4A52182150400C50166 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD11D4A42182150400C50166 /* CoreLocation.framework */; };
 		CD12861E2184142F00DD4BB8 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD12861D2184142F00DD4BB8 /* MapViewController.swift */; };
+		CD16526B218D20B7001772EC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16526A218D20B7001772EC /* ProfileViewController.swift */; };
 		CD1685552176A61100610EC0 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CD1685532176A61100610EC0 /* ProgressHUD.bundle */; };
 		CD1685562176A61100610EC0 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1685542176A61100610EC0 /* ProgressHUD.m */; };
 		CD1685582178246500610EC0 /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1685572178246500610EC0 /* RecentViewController.swift */; };
@@ -71,6 +72,7 @@
 		CD11BD42218549530083729B /* PropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyViewController.swift; sourceTree = "<group>"; };
 		CD11D4A42182150400C50166 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CD12861D2184142F00DD4BB8 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		CD16526A218D20B7001772EC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CD16855021767D0700610EC0 /* FolledoRealEstateApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FolledoRealEstateApp.entitlements; sourceTree = "<group>"; };
 		CD1685522176A61100610EC0 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		CD1685532176A61100610EC0 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				CD12861D2184142F00DD4BB8 /* MapViewController.swift */,
 				CD11BD42218549530083729B /* PropertyViewController.swift */,
 				CD100B5A218A5205006D7DAD /* ImageGalleryViewController.swift */,
+				CD16526A218D20B7001772EC /* ProfileViewController.swift */,
 			);
 			path = "Secondary Controllers";
 			sourceTree = "<group>";
@@ -244,8 +247,8 @@
 				CD2A83ED2174125600474637 /* Main.storyboard */,
 				CD354F02217D6355006C2388 /* MainTabBarController.swift */,
 				CD100B5721891CBA006D7DAD /* Main Tab Bar Controllers */,
-				CD100B5921891DC3006D7DAD /* Custom Cells */,
 				CD100B5821891DA8006D7DAD /* Secondary Controllers */,
+				CD100B5921891DC3006D7DAD /* Custom Cells */,
 				CD12861F21841A7500DD4BB8 /* Register */,
 				CD8DCA112175059F00AD878C /* Model */,
 				CD8DCA102174FBF000AD878C /* Helpers */,
@@ -533,6 +536,7 @@
 			files = (
 				CD16855C2178295200610EC0 /* Property.swift in Sources */,
 				CD11BD43218549530083729B /* PropertyViewController.swift in Sources */,
+				CD16526B218D20B7001772EC /* ProfileViewController.swift in Sources */,
 				CD8DCA092174592200AD878C /* RegisterViewController.swift in Sources */,
 				CD354F03217D6355006C2388 /* MainTabBarController.swift in Sources */,
 				CD2A83EA2174125600474637 /* AppDelegate.swift in Sources */,

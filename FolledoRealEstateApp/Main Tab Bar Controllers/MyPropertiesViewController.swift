@@ -137,4 +137,9 @@ class MyPropertiesViewController: UIViewController, UICollectionViewDelegate, UI
         self.present(optionMenu, animated: true, completion: nil) //RE ep.87 8mins
     }
     
+    
+    
+    @IBAction func profileMenuButton(_ sender: Any) {
+        self.performSegue(withIdentifier: "profileController", sender: nil)
+    }
 }

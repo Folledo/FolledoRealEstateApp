@@ -9,7 +9,7 @@
 import UIKit
 import Firebase //RE ep.6 1min
 import OneSignal //RE ep.6 1min //Not importing backendless because it's already connected to our Bridging header which automatically allows us to use it all over our project, but still need to set up at 2mins online with its APP_ID, and APP_KEY
-
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //observer
         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "UserDidLoginNotification"), object: nil, queue: nil) { (note) in //RE ep.23 10mins when we receive this type of notification... we get userId
-            let userId = note.userInfo!["userId"] as! String //RE ep.23 11mins now we are receiving userInfo that we received //we are accessing "userId" that was passed in userInfo
+            let userId:String = note.userInfo!["userId"] as! String //RE ep.23 11mins now we are receiving userInfo that we received //we are accessing "userId" that was passed in userInfo
             UserDefaults.standard.set(userId, forKey: "userId") //RE ep.23 12mins
             UserDefaults.standard.synchronize() //RE ep.23 12mins now we have userId, we save it
             
@@ -112,13 +112,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else { //RE ep.23 16mins
                 UserDefaults.standard.removeObject(forKey: "OneSignalId") //RE ep.23 16mins if we dont have then remove it
             }
-            
-            print("One signal started... udating OneSignalId in Firebase")
-        //save to our user object
-            updateOneSignalId() //RE ep.25 6mins
-            
         }
         
+        print("One signal started... udating OneSignalId in Firebase")
+        //save to our user object
+        updateOneSignalId() //RE ep.25 6mins
     }
     
     
