@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate { //RE ep.104
         super.viewDidLoad()
         
         updateUI()
-        
+        print("\(String(describing: FUser.currentUser()?.fullName))")
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
         view.addGestureRecognizer(tap)
@@ -107,6 +107,11 @@ class ProfileViewController: UIViewController, ImagePickerDelegate { //RE ep.104
         additionalPhoneTextField.leftView = mobileImageView1 //RE ep.105 0mins
         additionalPhoneTextField.addSubview(mobileImageView1) //RE ep.105 0mins
         
+        updateValuesOfTextFieldsAndImageView()
+    }
+    
+    
+    func updateValuesOfTextFieldsAndImageView() {
     //fill out the text in the text fields
         let user = FUser.currentUser()! //RE ep.105 1min
         nameTextField.text = user.firstName //RE ep.105 2mins
@@ -122,6 +127,15 @@ class ProfileViewController: UIViewController, ImagePickerDelegate { //RE ep.104
         }
     }
     
+    func removeValuesOfTextFieldsAndImageView() {
+        nameTextField.text = "" //RE ep.105 2mins
+        surnameTextField.text = "" //RE ep.105 2mins
+        mobileTextField.text = "" //RE ep.105 2mins
+        additionalPhoneTextField.text = "" //RE ep.105 2mins
+        
+        
+        self.avatarImageView.image = UIImage(named: "img_placeholder")
+    }
     
     
 //MARK: Selectors
@@ -166,11 +180,14 @@ class ProfileViewController: UIViewController, ImagePickerDelegate { //RE ep.104
             let userFullName = user.fullName
             
             FUser.logOutCurrentUser(withBlock: { (success) in //RE ep.109 7mins
-                if success { //RE ep.109 7mins if successful
-                    print("\(userFullName) is Logged out successfully!")
-                    Service.toRegisterController(on: self) //RE ep.109 8mins
-                } else {
+                if !success {
                     Service.presentAlert(on: self, title: "Error", message: "Error loggin out")
+                } else { //RE ep.109 7mins if successful
+                    self.removeValuesOfTextFieldsAndImageView()
+                    
+                    print("\(userFullName) is Logged out successfully!")
+                    Service.clearUserDefaults()
+                    Service.toRegisterController(on: self) //RE ep.109 8mins
                 }
             })
             

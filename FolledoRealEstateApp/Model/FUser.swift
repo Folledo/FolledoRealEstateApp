@@ -198,18 +198,20 @@ class FUser { //RE ep.11 1mins
     
 //MARK: Login
     class func loginUserWith(email: String, password: String, withBlock: @escaping (_ error: Error?) -> Void) { //RE ep.110 1mins
-        print("3")
         Auth.auth().signIn(withEmail: email, password: password) { (firUser, error) in //RE ep.110 2mins
-            print("4")
-            if error != nil { //RE ep.110 3mins
+            if let error = error { //RE ep.110 3mins
                 withBlock(error) //RE ep.110 3mins
-            } else { //RE ep.110 3mins
-                print("5")
-                fetchUserWith(userId: firUser!.user.uid, completion: { (fUser) in //RE ep.110 //4mins after signing in, we need to download these user and save it to our local UserDefaults //5mins this method takes a user.uid, finds the user we want, converts it to FUser and returns it, so now we can save them
-                    saveUserLocally(fUser: fUser!) //RE ep.110 7mins
-                    print("6")
-                })
+                return
             }
+            //RE ep.110 3mins
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: { //it is important to have some DELAY
+                let uid: String = firUser!.user.uid
+                fetchUserWith(userId: uid, completion: { (fUser) in //RE ep.110 //4mins after signing in, we need to download these user and save it to our local UserDefaults //5mins this method takes a user.uid, finds the user we want, converts it to FUser and returns it, so now we can save them
+                    guard let user = fUser else { print("no user"); return }
+                    saveUserLocally(fUser: user) //RE ep.110 7mins
+                    withBlock(error)
+                })
+            })
         }
     }
     
@@ -261,7 +263,8 @@ func fetchUserWith(userId: String, completion: @escaping (_ user: FUser?) -> Voi
     let ref = firDatabase.child(kUSER).queryOrdered(byChild: kOBJECTID).queryEqual(toValue: userId) //RE ep.17 11mins orderedByChild orders all our users using their objectId. And objectId is going to be query equals userId we are passing
     //queryOrderBy: is used to generate a reference to a view of the data that's been sorted by the values of a particular child key. This method is intended to be used in combination with queryStartingAtValue:, queryEndingAtValue:, or queryEqualToValue:.
     //queryEqualToValue: is used to generate a reference to a limited view of the data at this location. The FIRDatabaseQuery instance returned by queryEqualToValue: will respond to events at nodes with a value equal to the supplied argument.
-    ref.observeSingleEvent(of: .value) { (snapshot) in //RE ep.17 12mins observe one value only. //.value = Any data changes at a location or, recursively, at any child node.
+    
+    ref.observeSingleEvent(of: .value, with: { (snapshot) in //RE ep.17 12mins observe one value only. //.value = Any data changes at a location or, recursively, at any child node.
         
         if snapshot.exists() { //RE ep.18 0min if we find a user
             let userDictionary = ((snapshot.value as! NSDictionary).allValues as NSArray).firstObject! as! NSDictionary //RE ep.18 1min
@@ -271,7 +274,7 @@ func fetchUserWith(userId: String, completion: @escaping (_ user: FUser?) -> Voi
         } else { //RE ep.18 0min snapshot dont exist
             completion(nil) //RE ep.18 0min we dont have a user
         }
-    }
+    }, withCancel: nil)
 }
 
 
@@ -290,7 +293,7 @@ func userDictionaryFrom(user: FUser) -> NSDictionary { //RE ep.15 1min take a us
 func updateCurrentUser(withValues: [String : Any], withBlock: @escaping(_ success: Bool) -> Void) { //RE ep.24 0min will pass a dictionary with an Any value, with running a background thread escaping, pass success type boolean, so we can return if user was updated successfully, no return here so void
     
     if UserDefaults.standard.object(forKey: kCURRENTUSER) != nil { //RE ep.24 2mins
-        let currentUser = FUser.currentUser()! //RE ep.24 3mins
+        guard let currentUser = FUser.currentUser() else { return } //RE ep.24 3mins
         let userObject = userDictionaryFrom(user: currentUser).mutableCopy() as! NSMutableDictionary //RE ep.24 3mins //this makes the normal dictionary a mutable dictionary and specify it as NSMutableDictionary
         userObject.setValuesForKeys(withValues) //RE ep.24 4mins pass our withValues parameter and to pass it to userObject, now we can save our user to Firebase
         

@@ -63,7 +63,8 @@ class Service { //FB ep.29 1mins
     
     
     static func clearUserDefaults() {
-        UserDefaults.standard.set(nil, forKey: "name")
+        UserDefaults.standard.set(nil, forKey: kCURRENTUSER)
+        UserDefaults.standard.synchronize()
     }
     
     static func hideButton(button: UIButton) {

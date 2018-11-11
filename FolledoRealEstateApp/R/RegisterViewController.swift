@@ -14,6 +14,7 @@ class RegisterViewController: UIViewController {
     
     var phoneNumber: String? //RE ep.20 2mins
     
+    
     //spinner
     lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView()
@@ -45,7 +46,7 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        print("Login mode is = \(isLoginMode.description)")
+        print("Current logged in user for some reason is.... \(String(describing: FUser.currentUser()?.fullName))")
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         self.view.addGestureRecognizer(tap)
@@ -134,8 +135,6 @@ class RegisterViewController: UIViewController {
             if isLoginMode == true { //LOGIN //RE ep.110
                 print("2")
                 FUser.loginUserWith(email: email, password: password) { (error) in //RE ep.110 11mins
-                    
-                    print("7")
 //                    self.spinner.stopAnimating()
                     if error != nil { //RE ep.110 11mins
                         print(error!.localizedDescription)
@@ -143,19 +142,17 @@ class RegisterViewController: UIViewController {
                         return
                     } else {
                         print("8")
-                        DispatchQueue.main.asyncAfter(wallDeadline: DispatchWallTime.now() + 1, execute: {
-                            print("Loggin in with \(email)")
+                        DispatchQueue.main.async {
                             self.presentMainTabAndWelcome()
-                        })
+                        }
                     }
                 }
-                print("skipped 7")
+                
 //REGISTER
             } else { //REGISTER
 //                spinner.stopAnimating()
                 guard let firstName = self.firstNameTextField.text else { return } //RE ep.16 1min
                 guard let lastName = self.lastNameTextField.text else { return } //RE ep.16 1min
-                print("Registering???")
                 if Service.isValidWithName(name: firstName) && Service.isValidWithName(name: lastName) {
 //                    spinner.startAnimating()
                     
@@ -174,7 +171,6 @@ class RegisterViewController: UIViewController {
                     return
                 }
             } //END OF REGISTERING
-            print("End of registering")
         } else { //email and password are invalid
             Service.presentAlert(on: self, title: "Email/Password Error", message: "Invalid Email or Password. Please try a valid email with a password greater than 6 characters.")
             return
@@ -188,7 +184,7 @@ class RegisterViewController: UIViewController {
     
     func presentMainTabAndWelcome(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc:MainTabBarController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        let vc: MainTabBarController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
         vc.justStarted = true //to present our welcome alert
         self.present(vc, animated: true, completion: nil)
     }

@@ -20,8 +20,12 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLoad() { //RE ep.77
         super.viewDidLoad()
-
         
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("\(FUser.currentUser()?.fullName)")
     }
     
     override func viewWillAppear(_ animated: Bool) { //RE ep.79 0mins

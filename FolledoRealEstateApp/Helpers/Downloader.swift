@@ -92,8 +92,8 @@ func separateImageLinks(allLinks: String) -> [String] { //RE ep.51 3mins takes o
 func convertImagesToData(images: [UIImage], withBlock: @escaping(_ datas: [Data]) -> Void) { //RE ep.52 2mins get images and return their data
     var dataArray: [Data] = [] //RE ep.52 3mins empty array for our data
     for image in images { //RE ep.52 3mins for every image...
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else { return } //RE ep.52 4mins make a jpeg representation and compress it to half
-        dataArray.append(imageData) //RE ep.52 4mins
+//        guard let imageData = image.jpegData(compressionQuality: 0.5) else { return } //RE ep.52 4mins make a jpeg representation and compress it to half
+        dataArray.append(image.jpegData(compressionQuality: 0.5)!) //RE ep.52 4mins
     }
     withBlock(dataArray)
 }
