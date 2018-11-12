@@ -24,7 +24,7 @@ class MyPropertiesViewController: UIViewController, UICollectionViewDelegate, UI
     
     override func viewDidLoad() { //RE ep.84 9mins
         super.viewDidLoad()
-        print("\(String(describing: FUser.currentUser()!.fullName))")
+        print("\(String(describing: FUser.currentUser()?.fullName))")
         // Do any additional setup after loading the view.
     }
     

@@ -61,19 +61,20 @@ func uploadImages(images: [UIImage], userId: String, referenceNumber: String, wi
                     print("error uploading picture \(error.localizedDescription)") //RE ep.53 3mins
                     return //RE ep.53 3mins
                 }
-                
-                storageRef.downloadURL(completion: { (url, error) in //RE ep.53 4mins get the download URL firebase has saved our images
-                    if let error = error {
-                        print("Error downloading picture's URL \(error.localizedDescription)") //RE ep.53 4mins
-                        return
-                    }
-                    
-                    linkString = linkString + url!.absoluteString + "," //RE ep.53 5mins the comma will separate our links from one another
-                    if uploadCounter == pictures.count { //RE ep.53 5mins if our counter is = to our all our pictures...
-                        task.removeAllObservers() //RE ep.53 5mins
-                        withBlock(linkString) //RE ep.53 6mins
-                    }
-                })
+                DispatchQueue.main.async {
+                    storageRef.downloadURL(completion: { (url, error) in //RE ep.53 4mins get the download URL firebase has saved our images
+                        if let error = error {
+                            print("Error downloading picture's URL \(error.localizedDescription)") //RE ep.53 4mins
+                            return
+                        }
+                        
+                        linkString = linkString + url!.absoluteString + "," //RE ep.53 5mins the comma will separate our links from one another
+                        if uploadCounter == pictures.count { //RE ep.53 5mins if our counter is = to our all our pictures...
+                            task.removeAllObservers() //RE ep.53 5mins
+                            withBlock(linkString) //RE ep.53 6mins
+                        }
+                    })
+                }
             })
         }
     }

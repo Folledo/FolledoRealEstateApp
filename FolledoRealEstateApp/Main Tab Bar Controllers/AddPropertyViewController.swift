@@ -237,20 +237,26 @@ class AddPropertyViewController: UIViewController, ImagePickerDelegate, UITextFi
             newProperty.isFurnished = furnishedSwitchValue //RE ep.40 8mins
             
         //property images
-            if propertyImages.count != 0 { //RE ep.50 3mins if we have an image...
-                uploadImages(images: propertyImages, userId: user!.objectId, referenceNumber: newProperty.referenceCode!) { (linkString) in //RE ep.54 1min if we have images then upload our images we chose //IMPORTANT! Dont forget to change the data type of imageLinks in Backendless from String to Text so we can upload as much links as we can. String has a character limit
-                    newProperty.imageLinks = linkString //RE ep.54 2mins
-                    newProperty.saveProperty() //RE ep.54 2mins
-                    ProgressHUD.showSuccess("Saved!") //RE ep.54 3mins
-//                    self.dismiss(animated: true, completion: nil) //RE ep.54 3mins
-                    Service.toRecentTab(on: self)
-                }
+            if self.propertyImages.count != 0 { //RE ep.50 3mins if we have an image...
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    uploadImages(images: self.propertyImages, userId: self.user!.objectId, referenceNumber: newProperty.referenceCode!) { (linkString) in //RE ep.54 1min if we have images then upload our images we chose //IMPORTANT! Dont forget to change the data type of imageLinks in Backendless from String to Text so we can upload as much links as we can. String has a character limit
+                        newProperty.imageLinks = linkString //RE ep.54 2mins
+                        newProperty.saveProperty() //RE ep.54 2mins
+                        ProgressHUD.showSuccess("Saved!") //RE ep.54 3mins
+                        //                    self.dismiss(animated: true, completion: nil) //RE ep.54 3mins
+                        Service.toRecentTab(on: self)
+                    }
+//                }
+                
+                
                 
                 
             } else { //RE ep.50 3mins if no image then save
-                newProperty.saveProperty() //RE ep.40 9mins save it
-                ProgressHUD.showSuccess("Saved!")
-                Service.toHomeTabController(on: self) //RE ep.50 5mins
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    newProperty.saveProperty() //RE ep.40 9mins save it
+                    ProgressHUD.showSuccess("Saved!")
+                    Service.toHomeTabController(on: self) //RE ep.50 5mins
+//                }
             }
         } else { //RE ep.39 8mins some *** textField is empty
             ProgressHUD.showError("Error Missing required fields") //RE ep.39 8mins

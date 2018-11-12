@@ -71,8 +71,12 @@ class PropertyViewController: UIViewController { //RE ep.69 5mins fileis created
     
     
 //MARK: IBActions
-    @IBAction func phoneButtonTapped(_ sender: Any) { //RE ep.71
-        Service.presentAlert(on: self, title: "Can't call yet", message: "Wait for future update")
+    @IBAction func phoneButtonTapped(_ sender: Any) { //RE ep.71 everytime the phone is tapped, we want to take the info about this property about our user, then create a notif and send to the agent who has posted this property
+        let currentUser = FUser.currentUser()! //RE ep.119 1mins
+        let fbNotification = FBNotification(_buyerId: currentUser.objectId, _agentId: property.ownerId!, _createdAt: Date(), _phoneNumber: currentUser.phoneNumber, _buyerFullName: currentUser.fullName, _propertyReference: property!.referenceCode!, _propertyObjectId: property!.objectId!) //RE ep.119 2-3 mins create the fbNotification with our info
+        
+        saveNotificationInBackground(fbNotification: fbNotification) //RE ep.119 4mins
+        
     }
     
     @IBAction func backButtonTapped(_ sender: Any) { //RE ep.71

@@ -14,6 +14,11 @@ import FirebaseDatabase
 var backendless = Backendless.sharedInstance() //RE ep.6
 var firDatabase = Database.database().reference() //RE ep.15 11mins
 
+
+var notifHandler: UInt = 0 //RE ep.114 7mins
+let notifFirebaseRef = firDatabase.child(kFBNOTIFICATIONS) //RE ep.114 7mins "Notifications"
+
+
 //uiPickers
 let propertyTypes = ["Select", "Apartment", "House", "Villa", "Land", "Flat", "Mansion", "Palace", "Hotel"] //RE ep.57 10mins
 let advertismentType = ["Select", "Sale", "Rent", "Exchange"] //RE ep.57 10mins

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		13516DF09D2310A0B534B418 /* Pods_FolledoRealEstateAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC3D5A169725B48C3CA905 /* Pods_FolledoRealEstateAppUITests.framework */; };
 		58963E844365A453C7EC4539 /* Pods_FolledoRealEstateApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384936EB6F597481FE010031 /* Pods_FolledoRealEstateApp.framework */; };
+		7E79842F2197D4D8002D0252 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E79842E2197D4D8002D0252 /* NotificationsViewController.swift */; };
+		7E7984312197D7C1002D0252 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7984302197D7C1002D0252 /* NotificationTableViewCell.swift */; };
+		7E7984332197E10F002D0252 /* FBNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7984322197E10F002D0252 /* FBNotification.swift */; };
 		C7A2A41C9C11192CC6937150 /* Pods_FolledoRealEstateAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8645F7B512F810725DFA665 /* Pods_FolledoRealEstateAppTests.framework */; };
 		CD100B5621891C4A006D7DAD /* MyPropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD100B5521891C4A006D7DAD /* MyPropertiesViewController.swift */; };
 		CD100B5B218A5205006D7DAD /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD100B5A218A5205006D7DAD /* ImageGalleryViewController.swift */; };
@@ -66,6 +69,9 @@
 		384936EB6F597481FE010031 /* Pods_FolledoRealEstateApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FolledoRealEstateApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A2CEDDD1D12EE5494AF8CCA /* Pods-FolledoRealEstateApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FolledoRealEstateApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FolledoRealEstateApp/Pods-FolledoRealEstateApp.release.xcconfig"; sourceTree = "<group>"; };
 		65FC3D5A169725B48C3CA905 /* Pods_FolledoRealEstateAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FolledoRealEstateAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E79842E2197D4D8002D0252 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		7E7984302197D7C1002D0252 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
+		7E7984322197E10F002D0252 /* FBNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBNotification.swift; sourceTree = "<group>"; };
 		922DF842D2596F87EFF0D599 /* Pods-FolledoRealEstateApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FolledoRealEstateApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FolledoRealEstateApp/Pods-FolledoRealEstateApp.debug.xcconfig"; sourceTree = "<group>"; };
 		CD100B5521891C4A006D7DAD /* MyPropertiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPropertiesViewController.swift; sourceTree = "<group>"; };
 		CD100B5A218A5205006D7DAD /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +191,7 @@
 				CD11BD42218549530083729B /* PropertyViewController.swift */,
 				CD100B5A218A5205006D7DAD /* ImageGalleryViewController.swift */,
 				CD16526A218D20B7001772EC /* ProfileViewController.swift */,
+				7E79842E2197D4D8002D0252 /* NotificationsViewController.swift */,
 			);
 			path = "Secondary Controllers";
 			sourceTree = "<group>";
@@ -194,6 +201,7 @@
 			children = (
 				CD168559217825AA00610EC0 /* PropertyCollectionViewCell.swift */,
 				CD17EB30218BA4310045F5F1 /* ImageGalleryCollectionViewCell.swift */,
+				7E7984302197D7C1002D0252 /* NotificationTableViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -296,6 +304,7 @@
 			children = (
 				CD8DCA0A2174D72C00AD878C /* FUser.swift */,
 				CD16855B2178295100610EC0 /* Property.swift */,
+				7E7984322197E10F002D0252 /* FBNotification.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -537,6 +546,7 @@
 				CD16855C2178295200610EC0 /* Property.swift in Sources */,
 				CD11BD43218549530083729B /* PropertyViewController.swift in Sources */,
 				CD16526B218D20B7001772EC /* ProfileViewController.swift in Sources */,
+				7E7984332197E10F002D0252 /* FBNotification.swift in Sources */,
 				CD8DCA092174592200AD878C /* RegisterViewController.swift in Sources */,
 				CD354F03217D6355006C2388 /* MainTabBarController.swift in Sources */,
 				CD2A83EA2174125600474637 /* AppDelegate.swift in Sources */,
@@ -544,8 +554,10 @@
 				CD100B5621891C4A006D7DAD /* MyPropertiesViewController.swift in Sources */,
 				CDEE61862187664B00CC43FB /* FavoriteViewController.swift in Sources */,
 				CD17EB31218BA4310045F5F1 /* ImageGalleryCollectionViewCell.swift in Sources */,
+				7E7984312197D7C1002D0252 /* NotificationTableViewCell.swift in Sources */,
 				CD1685562176A61100610EC0 /* ProgressHUD.m in Sources */,
 				CD8DCA0B2174D72C00AD878C /* FUser.swift in Sources */,
+				7E79842F2197D4D8002D0252 /* NotificationsViewController.swift in Sources */,
 				CD1685582178246500610EC0 /* RecentViewController.swift in Sources */,
 				CD354F09217D8B9C006C2388 /* Downloader.swift in Sources */,
 				CD8DCA0D2174DF0000AD878C /* Settings.swift in Sources */,
@@ -735,7 +747,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8KSKUH7X29;
 				INFOPLIST_FILE = FolledoRealEstateApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -761,7 +773,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8KSKUH7X29;
 				INFOPLIST_FILE = FolledoRealEstateApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
