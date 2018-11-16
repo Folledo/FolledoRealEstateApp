@@ -25,7 +25,7 @@ class FavoriteViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("\(FUser.currentUser()?.fullName)")
+        print("\(String(describing: FUser.currentUser()?.fullName))")
     }
     
     override func viewWillAppear(_ animated: Bool) { //RE ep.79 0mins

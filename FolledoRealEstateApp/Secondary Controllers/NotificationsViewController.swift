@@ -34,7 +34,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
 //MARK: TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { //RE ep.118 0mins when user selects a cell
         tableView.deselectRow(at: indexPath, animated: true) //RE ep.118 1mins deselect the row because we are not going to show anything
-        
+        self.tableView.reloadData()
     }
     
     
@@ -45,7 +45,7 @@ class NotificationsViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) { //RE ep.118 2mins this func is called everytime we slide the cell, we will see a delete button
         deleteNotification(fbNotification: allNotifications[indexPath.row]) //RE ep.118 2mins call our delete method and pass the notif selected
         self.allNotifications.remove(at: indexPath.row) //RE ep.118 3mins remove it from array
-        self.tableView.reloadData() //RE ep.118 3mins we reload our tableView
+        tableView.reloadData() //RE ep.118 3mins we reload our tableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { //RE ep.112 6mins

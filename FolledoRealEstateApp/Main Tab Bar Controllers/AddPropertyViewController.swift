@@ -294,11 +294,19 @@ class AddPropertyViewController: UIViewController, ImagePickerDelegate, UITextFi
     
     @IBAction func saveButtonTapped(_ sender: Any) { //RE ep.38
         user = FUser.currentUser()! //RE ep.39 4mins
-        if !user!.isAgent { //RE ep.39 5mins if user is not agent
-            //check if user can post
-            save()
-        } else { //RE ep.39 5mins user is an agent and save
-            save()
+        if !user!.isAgent { //RE ep.39 5mins if user is not agent user can only post 1 property. If user's property number is 1, then they cant post anymore
+            canUserPostProperty { (canPost) in //RE ep.137 7mins
+                if canPost { //RE ep.137 7mins
+                    self.save() //RE ep.137 7mins
+                } else { //RE ep.137 7mins
+                    ProgressHUD.showError("You have reached your post limit!") //RE ep.137 8mins
+                }
+            }
+            
+//            save() //RE ep.39 5mins
+        } else { //RE ep.39 5mins user is an agent, then user can post unlimited properties
+            
+            save() //RE ep.39 5mins
         }
     }
     

@@ -73,10 +73,16 @@ class PropertyViewController: UIViewController { //RE ep.69 5mins fileis created
 //MARK: IBActions
     @IBAction func phoneButtonTapped(_ sender: Any) { //RE ep.71 everytime the phone is tapped, we want to take the info about this property about our user, then create a notif and send to the agent who has posted this property
         let currentUser = FUser.currentUser()! //RE ep.119 1mins
+        
+        
+        let message = "I am interested in property with reference code \(String(describing: property.referenceCode))" //RE ep.121 14mins
+        sendPushNotification(toProperty: property!, message: message) //RE ep.121 15mins send our push notifications
+        
+        
         let fbNotification = FBNotification(_buyerId: currentUser.objectId, _agentId: property.ownerId!, _createdAt: Date(), _phoneNumber: currentUser.phoneNumber, _buyerFullName: currentUser.fullName, _propertyReference: property!.referenceCode!, _propertyObjectId: property!.objectId!) //RE ep.119 2-3 mins create the fbNotification with our info
         
         saveNotificationInBackground(fbNotification: fbNotification) //RE ep.119 4mins
-        
+        ProgressHUD.showSuccess("Finished Sending Notification!")
     }
     
     @IBAction func backButtonTapped(_ sender: Any) { //RE ep.71
@@ -129,6 +135,7 @@ class PropertyViewController: UIViewController { //RE ep.69 5mins fileis created
     
     func setupUI(){ //RE ep.75 0mins
         if FUser.currentUser() != nil { //RE ep.75 1min if we have a logged in user...
+//            self.callBackButton.isHidden = false
             self.callBackButton.isEnabled = true //RE ep.75 1min enable our disabled callButton
         }
         
@@ -136,7 +143,7 @@ class PropertyViewController: UIViewController { //RE ep.69 5mins fileis created
         propertyTitleLabel.text = property.title! //RE ep.75 2mins
         priceLabel.text = "$\(property.price)" //RE ep.75 2mins
         shortInformationLabel.text = "\(property.size) m² - \(property.numberOfRooms) Bedroom(s)" //RE ep.75 3mins
-        propertyTypeLabel.text = property.propertyType //RE ep.75 4mins
+        propertyTypeLabel.text = property.propertyType! + " for " + property.advertisementType! + "!" //RE ep.75 4mins
         furnishedLabel.text = property.isFurnished ? "YES" : "NO" //RE ep.75 4mins YES if isFurnished is true
         storeRoomLabel.text = property.storeRoom ? "YES" : "NO" //RE ep.75 5mins
         airConditionLabel.text = property.airconditioner ? "YES" : "NO" //RE ep.75 5mins
@@ -167,7 +174,7 @@ class PropertyViewController: UIViewController { //RE ep.69 5mins fileis created
             addressLabel.text = property.address //RE ep.75 11mins
         }
         
-        if property.latitude != 0 && property.latitude != nil { //RE ep.75 12mins
+        if property.latitude != 0 && property.latitude != 0 { //RE ep.75 12mins
             mapView.isHidden = false //RE ep.75 12mins
             propertyCoordinate = CLLocationCoordinate2D(latitude: property.latitude, longitude: property.longitude) //RE ep.75 12mins
             

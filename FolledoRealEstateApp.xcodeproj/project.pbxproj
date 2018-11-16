@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		13516DF09D2310A0B534B418 /* Pods_FolledoRealEstateAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FC3D5A169725B48C3CA905 /* Pods_FolledoRealEstateAppUITests.framework */; };
 		58963E844365A453C7EC4539 /* Pods_FolledoRealEstateApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384936EB6F597481FE010031 /* Pods_FolledoRealEstateApp.framework */; };
+		7E0F461C219DE6DA00635674 /* SearchParametersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0F461B219DE6DA00635674 /* SearchParametersViewController.swift */; };
 		7E79842F2197D4D8002D0252 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E79842E2197D4D8002D0252 /* NotificationsViewController.swift */; };
 		7E7984312197D7C1002D0252 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7984302197D7C1002D0252 /* NotificationTableViewCell.swift */; };
 		7E7984332197E10F002D0252 /* FBNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7984322197E10F002D0252 /* FBNotification.swift */; };
+		7EE9A37221992E4700F36CFE /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE9A37121992E4700F36CFE /* PushNotifications.swift */; };
+		7EF11D72219B5955007FEBD8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF11D71219B5955007FEBD8 /* SearchViewController.swift */; };
 		C7A2A41C9C11192CC6937150 /* Pods_FolledoRealEstateAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8645F7B512F810725DFA665 /* Pods_FolledoRealEstateAppTests.framework */; };
 		CD100B5621891C4A006D7DAD /* MyPropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD100B5521891C4A006D7DAD /* MyPropertiesViewController.swift */; };
 		CD100B5B218A5205006D7DAD /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD100B5A218A5205006D7DAD /* ImageGalleryViewController.swift */; };
@@ -69,9 +72,12 @@
 		384936EB6F597481FE010031 /* Pods_FolledoRealEstateApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FolledoRealEstateApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A2CEDDD1D12EE5494AF8CCA /* Pods-FolledoRealEstateApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FolledoRealEstateApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FolledoRealEstateApp/Pods-FolledoRealEstateApp.release.xcconfig"; sourceTree = "<group>"; };
 		65FC3D5A169725B48C3CA905 /* Pods_FolledoRealEstateAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FolledoRealEstateAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E0F461B219DE6DA00635674 /* SearchParametersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchParametersViewController.swift; sourceTree = "<group>"; };
 		7E79842E2197D4D8002D0252 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		7E7984302197D7C1002D0252 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		7E7984322197E10F002D0252 /* FBNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBNotification.swift; sourceTree = "<group>"; };
+		7EE9A37121992E4700F36CFE /* PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
+		7EF11D71219B5955007FEBD8 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		922DF842D2596F87EFF0D599 /* Pods-FolledoRealEstateApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FolledoRealEstateApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FolledoRealEstateApp/Pods-FolledoRealEstateApp.debug.xcconfig"; sourceTree = "<group>"; };
 		CD100B5521891C4A006D7DAD /* MyPropertiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPropertiesViewController.swift; sourceTree = "<group>"; };
 		CD100B5A218A5205006D7DAD /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +166,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7EE9A37321992E5600F36CFE /* PushNotification */ = {
+			isa = PBXGroup;
+			children = (
+				7EE9A37121992E4700F36CFE /* PushNotifications.swift */,
+			);
+			path = PushNotification;
+			sourceTree = "<group>";
+		};
 		BBA37D485354B4317F1C5703 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				CD1685572178246500610EC0 /* RecentViewController.swift */,
+				7EF11D71219B5955007FEBD8 /* SearchViewController.swift */,
 				CD1D801D217AC9A800F81129 /* AddPropertyViewController.swift */,
 				CDEE61852187664B00CC43FB /* FavoriteViewController.swift */,
 				CD100B5521891C4A006D7DAD /* MyPropertiesViewController.swift */,
@@ -192,6 +207,7 @@
 				CD100B5A218A5205006D7DAD /* ImageGalleryViewController.swift */,
 				CD16526A218D20B7001772EC /* ProfileViewController.swift */,
 				7E79842E2197D4D8002D0252 /* NotificationsViewController.swift */,
+				7E0F461B219DE6DA00635674 /* SearchParametersViewController.swift */,
 			);
 			path = "Secondary Controllers";
 			sourceTree = "<group>";
@@ -259,6 +275,7 @@
 				CD100B5921891DC3006D7DAD /* Custom Cells */,
 				CD12861F21841A7500DD4BB8 /* Register */,
 				CD8DCA112175059F00AD878C /* Model */,
+				7EE9A37321992E5600F36CFE /* PushNotification */,
 				CD8DCA102174FBF000AD878C /* Helpers */,
 				CD2A83F02174126400474637 /* Assets.xcassets */,
 				CD2A83F22174126400474637 /* LaunchScreen.storyboard */,
@@ -555,14 +572,17 @@
 				CDEE61862187664B00CC43FB /* FavoriteViewController.swift in Sources */,
 				CD17EB31218BA4310045F5F1 /* ImageGalleryCollectionViewCell.swift in Sources */,
 				7E7984312197D7C1002D0252 /* NotificationTableViewCell.swift in Sources */,
+				7E0F461C219DE6DA00635674 /* SearchParametersViewController.swift in Sources */,
 				CD1685562176A61100610EC0 /* ProgressHUD.m in Sources */,
 				CD8DCA0B2174D72C00AD878C /* FUser.swift in Sources */,
 				7E79842F2197D4D8002D0252 /* NotificationsViewController.swift in Sources */,
+				7EF11D72219B5955007FEBD8 /* SearchViewController.swift in Sources */,
 				CD1685582178246500610EC0 /* RecentViewController.swift in Sources */,
 				CD354F09217D8B9C006C2388 /* Downloader.swift in Sources */,
 				CD8DCA0D2174DF0000AD878C /* Settings.swift in Sources */,
 				CD16855A217825AA00610EC0 /* PropertyCollectionViewCell.swift in Sources */,
 				CD100B5B218A5205006D7DAD /* ImageGalleryViewController.swift in Sources */,
+				7EE9A37221992E4700F36CFE /* PushNotifications.swift in Sources */,
 				CD8DCA0F2174FBE200AD878C /* Service.swift in Sources */,
 				CD1D801E217AC9A800F81129 /* AddPropertyViewController.swift in Sources */,
 				CD12861E2184142F00DD4BB8 /* MapViewController.swift in Sources */,

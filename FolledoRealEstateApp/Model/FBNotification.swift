@@ -133,6 +133,7 @@ func fetchAgentNotifications(agentId: String, completion: @escaping(_ allNotific
             }
             
             if counter == allFbn.count { //RE ep.116 9mins check if the number of objects we received from Firebase is the same as to number we processed
+                notifFirebaseRef.removeObserver(withHandle: notifHandler)
                 completion(allNotifications) //RE ep.116 10mins
             }
             

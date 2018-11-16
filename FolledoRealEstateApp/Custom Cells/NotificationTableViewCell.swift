@@ -12,12 +12,11 @@ class NotificationTableViewCell: UITableViewCell { //RE ep.112
     
     
     @IBOutlet weak var fullNameLabel: UILabel!
-    
-    
     @IBOutlet weak var telNumberLabel: UILabel!
     @IBOutlet weak var propertyCodeLabel: UILabel!
-    
     @IBOutlet weak var dateLabel: UILabel!
+    
+    
     override func awakeFromNib() { //RE ep.112
         super.awakeFromNib()
         // Initialization code
@@ -37,7 +36,7 @@ class NotificationTableViewCell: UITableViewCell { //RE ep.112
         }
         
         let newDateFormatter = dateFormatter() //RE ep.118 7mins
-        newDateFormatter.dateFormat = "dd.MM.YYYY" //RE ep.118 8mins this will be the format of the date
+        newDateFormatter.dateFormat = "MM/dd/YYYY" //RE ep.118 8mins this will be the format of the date
         
         fullNameLabel.text = notification.buyerFullName //RE ep.118 5mins
         telNumberLabel.text = phone //RE ep.118 6mins

@@ -42,18 +42,42 @@ class ProfileViewController: UIViewController, ImagePickerDelegate { //RE ep.104
             addPhone = additionalPhoneTextField.text! //RE ep.108 1mins
         }
         
+        var phoneNumber: String = ""
+        var avatarLink: String = "\(FUser.currentUser()?.avatar ?? "")" //avatarLink with "" default value
+        
+        if mobileTextField.text != "" {
+            phoneNumber = mobileTextField.text!
+        }
+        
+    //name textfields
         if nameTextField.text != "" && surnameTextField.text != "" { //RE ep.108 2mins check if nameTextField is empty
             
             ProgressHUD.show("Saving...") //RE ep.108 3mins
-            var values = [kFIRSTNAME: nameTextField.text!, kLASTNAME: surnameTextField.text!, kADDPHONE: addPhone] //RE ep.108 3mins addPhone is an empty string unless the user inputs in additionalPhoneTF
+            var values = [kFIRSTNAME: nameTextField.text!, kLASTNAME: surnameTextField.text!, kPHONE: phoneNumber, kADDPHONE: addPhone, kAVATAR: avatarLink] //RE ep.108 3mins addPhone is an empty string unless the user inputs in additionalPhoneTF
             
+        //phoneNumber
+            if phoneNumber != "" && phoneNumber.count > 9 { //if phone number is empty or greater than 9
+                values = [kFIRSTNAME: nameTextField.text!, kLASTNAME: surnameTextField.text!, kPHONE: phoneNumber, kADDPHONE: addPhone, kAVATAR: avatarLink] //RE ep.108 5mins
+            } else if phoneNumber == "" { print("No phone number") }
+            else {
+                ProgressHUD.showError("Invalid Phone Number")
+                return
+            }
+            
+        //avatar image
             if avatarImage != nil { //RE ep.108 4mins check if we have an avatar image, then we save it as well
                 
                 let image = avatarImage!.jpegData(compressionQuality: 0.6) //RE ep.108 6mins convert an image to data
-                let avatarString = image!.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0)) //RE ep.108 7mins converts a data to string as a parameter for our avatar in values
+                avatarLink = image!.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0)) //RE ep.108 7mins converts a data to string as a parameter for our avatar in values
                 
-                values = [kFIRSTNAME: nameTextField.text!, kLASTNAME: surnameTextField.text!, kADDPHONE: addPhone, kAVATAR: avatarString] //RE ep.108 5mins
+                values = [kFIRSTNAME: nameTextField.text!, kLASTNAME: surnameTextField.text!, kPHONE: phoneNumber, kADDPHONE: addPhone, kAVATAR: avatarLink] //RE ep.108 5mins
             }
+            
+            values = [kFIRSTNAME: nameTextField.text!, kLASTNAME: surnameTextField.text!, kPHONE: phoneNumber, kADDPHONE: addPhone, kAVATAR: avatarLink] //RE ep.108 5mins
+            
+            print("Avatar link is ===== \(avatarLink)\nphoneNumber is ===== \(phoneNumber)")
+            
+            
             
             updateCurrentUser(withValues: values) { (success) in //RE ep.108 8mins
                 if !success { //RE ep.108 8mins
@@ -183,7 +207,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate { //RE ep.104
                 if !success {
                     Service.presentAlert(on: self, title: "Error", message: "Error loggin out")
                 } else { //RE ep.109 7mins if successful
-                    self.removeValuesOfTextFieldsAndImageView()
+//                    self.removeValuesOfTextFieldsAndImageView()
                     
                     print("\(userFullName) is Logged out successfully!")
                     Service.clearUserDefaults()
@@ -220,6 +244,23 @@ class ProfileViewController: UIViewController, ImagePickerDelegate { //RE ep.104
     
     @IBAction func buyCoinsButtonTapped(_ sender: Any) { //RE ep.104 4mins
         
+    }
+    
+    @IBAction func logoutButtonTapped(_ sender: Any) {
+        
+        let userFullName = FUser.currentUser()!.fullName
+        
+        FUser.logOutCurrentUser(withBlock: { (success) in //RE ep.109 7mins
+            if !success {
+                Service.presentAlert(on: self, title: "Error", message: "Error loggin out")
+            } else { //RE ep.109 7mins if successful
+                //                    self.removeValuesOfTextFieldsAndImageView()
+                
+                print("\(userFullName) is Logged out successfully!")
+                Service.clearUserDefaults()
+                Service.toRegisterController(on: self) //RE ep.109 8mins
+            }
+        })
     }
     
     

@@ -124,3 +124,21 @@ class Property: NSObject { //RE ep.30 3mins
     }
     
 }
+
+
+func canUserPostProperty(completion: @escaping (_ canPost: Bool) -> Void) { //RE ep.137 1mins
+    let queryBuilder = DataQueryBuilder() //RE ep.137 2mins
+    let whereClause = "ownerId = '\(FUser.currentId())'" //RE ep.137 2mins we search all properties that the owner is the current user
+    queryBuilder!.setWhereClause(whereClause) //RE ep.137 3mins
+    
+    let dataStore = backendless!.data.of(Property().ofClass()) //RE ep.137 3mins searching our property table in our backendless
+    dataStore!.find(queryBuilder, response: { (allProperties) in //RE ep.137 4mins returns allProperties associated to the user
+        
+        allProperties!.count == 0 ? completion(true) : completion(false) //RE ep.137 6mins if our allProperties count is 0, then we return true, otherwise return false. Which means user has reached limit
+        
+    }) { (fault: Fault?) in //RE ep.137 5mins
+        print("Fault where clause \(fault!.message)") //RE ep.137 5mins
+        completion(true) //RE ep.137 6mins in case we want an error, we still want to let user post property
+    }
+    
+}
