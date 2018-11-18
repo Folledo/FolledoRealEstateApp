@@ -69,3 +69,5 @@ public let kDEVICEID = "deviceId" //RE ep.11 12mins
 public let kTEMPFAVORITID = "tempID" //RE ep.11 12mins
 
 
+//comFolledoSwagCoins
+//comFolledoSwagAgentSubscription

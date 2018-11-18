@@ -142,6 +142,7 @@ class ProfileViewController: UIViewController, ImagePickerDelegate { //RE ep.104
         surnameTextField.text = user.lastName //RE ep.105 2mins
         mobileTextField.text = user.phoneNumber //RE ep.105 2mins
         additionalPhoneTextField.text = user.additionalPhoneNumber //RE ep.105 2mins
+        coinLabel.text = "\(user.coins)"
         
         
         if user.avatar != "" { //RE ep.105 2mins if true, it means we have an image
@@ -183,16 +184,22 @@ class ProfileViewController: UIViewController, ImagePickerDelegate { //RE ep.104
         
         let accountTypeAction = UIAlertAction(title: accountTypeString, style: .default) { (alert) in //RE ep.107 2mins
              print("Account")
+            
+            if !user.isAgent { //RE ep.143 2mins if user is not an agent...
+                self.agentSubscription() //RE ep.143 3mins
+            }
         }
         
         let restorePurchaseAction = UIAlertAction(title: "Restore Purchase", style: .default) { (alert) in //RE ep.107 5mins
+            self.restorePurchase() //RE ep.143 1mins
             print("Restore purchases")
             
         }
         
         let buyCoinsAction = UIAlertAction(title: "Buy Coins", style: .default) { (alert) in //RE ep.107 5mins
+            self.buyCoins() //RE ep.143 1mins
             print("Buy coins")
-            
+//            IAPService.shared.purchase(product: .coins) //RE ep.142 0mins
         }
         
         let saveChangesAction = UIAlertAction(title: "Save Changes", style: .default) { (alert) in
@@ -234,6 +241,22 @@ class ProfileViewController: UIViewController, ImagePickerDelegate { //RE ep.104
     }//End of ManuButton Tapped
     
     
+//MARK: IAPurchases
+    func buyCoins() { //RE ep.143 0mins
+        IAPService.shared.purchase(product: .coins) //RE ep.143 1mins
+    }
+    
+    func restorePurchase() { //RE ep.143 1mins
+        IAPService.shared.restorePurchase() //RE ep.143 2mins
+    }
+    
+    func agentSubscription() { //RE ep.143 3mins
+        IAPService.shared.purchase(product: .agentSubscription) //RE ep.143 3mins
+    }
+    
+    
+    
+//MARK: IBActions
     @IBAction func changeAvatarButtonTapped(_ sender: Any) { //RE ep.104 4mins
         let imagePickerController = ImagePickerController() //RE ep.106 0mins
         imagePickerController.delegate = self //RE ep.106 0mins
@@ -247,20 +270,36 @@ class ProfileViewController: UIViewController, ImagePickerDelegate { //RE ep.104
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
+        let user = FUser.currentUser()!
         
-        let userFullName = FUser.currentUser()!.fullName
+        let optionMenu = UIAlertController(title: "\(user.firstName) Logout?", message: nil, preferredStyle: .actionSheet) //RE ep.107 0mins
         
-        FUser.logOutCurrentUser(withBlock: { (success) in //RE ep.109 7mins
-            if !success {
-                Service.presentAlert(on: self, title: "Error", message: "Error loggin out")
-            } else { //RE ep.109 7mins if successful
-                //                    self.removeValuesOfTextFieldsAndImageView()
-                
-                print("\(userFullName) is Logged out successfully!")
-                Service.clearUserDefaults()
-                Service.toRegisterController(on: self) //RE ep.109 8mins
-            }
-        })
+        let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { (alert) in //RE ep.107 5mins
+            
+            FUser.logOutCurrentUser(withBlock: { (success) in //RE ep.109 7mins
+                if !success {
+                    Service.presentAlert(on: self, title: "Error", message: "Error loggin out")
+                } else { //RE ep.109 7mins if successful
+                    //                    self.removeValuesOfTextFieldsAndImageView()
+                    
+                    print("\(user.fullName) is Logged out successfully!")
+                    Service.clearUserDefaults()
+                    Service.toRegisterController(on: self) //RE ep.109 8mins
+                }
+            })
+            
+        }
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alert) in //RE ep.107 5mins
+            optionMenu.dismiss(animated: true, completion: nil)
+        }
+        
+        
+        optionMenu.addAction(logoutAction) //RE ep.107 5mins
+        optionMenu.addAction(cancelAction) //RE ep.107 5mins
+        
+        
     }
     
     

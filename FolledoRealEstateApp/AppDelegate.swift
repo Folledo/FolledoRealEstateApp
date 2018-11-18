@@ -27,6 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure() //RE ep.6 2mins start firebase
         backendless!.initApp(APP_ID, apiKey: API_KEY) //RE ep.6 5mins start backendless
+        
+        IAPService.shared.getProducts() //RE ep.140 2mins as soon as the app runs, we will get our product
+        
+        
         OneSignal.initWithLaunchOptions(launchOptions, appId: kONESIGNALAPPID, handleNotificationReceived: nil, handleNotificationAction: nil, settings: nil) //RE ep.6 6mins appId can be found in OneSignal's site -> App Settings -> Keys & IDs.
         
         Auth.auth().addStateDidChangeListener { (auth, user) in //RE ep.23 3mins

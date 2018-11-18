@@ -13,7 +13,7 @@ import FirebaseAuth
 class RegisterViewController: UIViewController {
     
     var phoneNumber: String? //RE ep.20 2mins
-    
+    var isPhoneNumberRestart: Bool = false
     
     //spinner
     lazy var spinner: UIActivityIndicatorView = {
@@ -50,6 +50,17 @@ class RegisterViewController: UIViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         self.view.addGestureRecognizer(tap)
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if isPhoneNumberRestart == true {
+            isPhoneNumberRestart = true
+            phoneNumberTextField.text = ""
+            phoneNumberTextField.isEnabled = true
+            codeTextField.text = ""
+            codeTextField.isHidden = true
+        }
     }
     
     
@@ -92,12 +103,13 @@ class RegisterViewController: UIViewController {
                     Service.presentAlert(on: self, title: "Phone Number Registering Error", message: error.localizedDescription)
                 } //RE ep.20 7mins
                 
+    //decide to finish registering or not
                 if shouldLogin { //RE ep.20 8mins go to main view
                     Service.toHomeTabController(on: self)
                     
-                } else { //RE ep.20 8mins go to finish register view
-                    Service.toHomeTabController(on: self)
-                    
+                } else { //RE ep.20 8mins go to FINISH REGISTERING view
+//                    Service.toHomeTabController(on: self)
+                    self.performSegue(withIdentifier: "toFinishRegisterSegue", sender: nil) //RE ep.149 1mins go finish registering if shouldLogin is false, meaning if we're registering because our phone number has never been inputted
                 }
             }
         }
@@ -130,10 +142,8 @@ class RegisterViewController: UIViewController {
         if Service.isValidWithEmail(email: email) && password.count >= 6 {
         //if Service.isValidWithEmail(email: email) && Service.isValidWithName(name: firstName) && Service.isValidWithName(name: lastName) && password.count >= 6 { //checks if email, names, and password are valid. If valid then we can register our FUser
             
-            print("1")
 //LOGIN
             if isLoginMode == true { //LOGIN //RE ep.110
-                print("2")
                 FUser.loginUserWith(email: email, password: password) { (error) in //RE ep.110 11mins
 //                    self.spinner.stopAnimating()
                     if error != nil { //RE ep.110 11mins
@@ -141,7 +151,6 @@ class RegisterViewController: UIViewController {
                         Service.presentAlert(on: self, title: "Error", message: error!.localizedDescription)
                         return
                     } else {
-                        print("8")
                         DispatchQueue.main.async {
                             self.presentMainTabAndWelcome()
                         }

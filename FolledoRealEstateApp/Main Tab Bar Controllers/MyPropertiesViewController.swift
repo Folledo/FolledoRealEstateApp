@@ -101,8 +101,31 @@ class MyPropertiesViewController: UIViewController, UICollectionViewDelegate, UI
             self.present(addPropertyVC, animated: true, completion: nil) //RE ep.89 2mins
         }
         
-        let makeTopAction = UIAlertAction(title: topAdStatus, style: .default) { (action) in //RE ep.87 6mins
-            print("Make Top")
+        let makeTopAction = UIAlertAction(title: topAdStatus, style: .default) { (action) in //RE ep.87 6mins this is to bring the property to the top in exchange for coins
+//            print("Make Top")
+            
+            let coins = FUser.currentUser()!.coins //RE ep.145 1mins
+            if coins >= 10 && !isInTop { //RE ep.145 2mins check if users have at least 10 coins and property is not on top yet
+                
+                updateCurrentUser(withValues: [kCOINS: coins - 10], withBlock: { (success) in //RE ep.145 3mins deduct 10
+                    if success { //RE ep.145 4mins
+                        let expireDate = Calendar.current.date(byAdding: .day, value: 7, to: Date()) //RE ep.145 5mins add 7 days to the current date //Returns a new Date representing the date calculated by adding an amount of a specific component to a given date.
+                        property.inTopUntil = expireDate //RE ep.145 6mins assign the property on top until the expire 7 days we created
+                        
+                        property.saveProperty() //RE ep.145 6mins save
+                        self.loadProperties() //RE ep.145 6mins refresh
+                    }
+                    
+                })
+                
+                
+            } else { //RE ep.145 2mins if we dont have enough coins or already on top
+                if isInTop{ //RE ep.145 2mins
+                    ProgressHUD.showError("Already in top") //RE ep.145 2mins
+                } else { //RE ep.145 2mins
+                    ProgressHUD.showError("Insufficient coins") //RE ep.145 3mins
+                }
+            }
             
         }
         

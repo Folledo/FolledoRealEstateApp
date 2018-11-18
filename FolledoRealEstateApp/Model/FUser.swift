@@ -236,6 +236,32 @@ class FUser { //RE ep.11 1mins
     }
     
     
+    class func deleteUser(completion: @escaping(_ error: Error?) -> Void) { //RE ep.150 5mins this method will delete the current user
+        let user = Auth.auth().currentUser //RE ep.150 6mins
+        user?.delete(completion: { (error) in //RE ep.150 7mins delete user
+            completion(error)
+        })
+    }
+    
+    
+//MARK: IAP Functions //RE ep.144
+    func purchse(productId: String) { //RE ep.144 0mins this method is for IAPService.swift paymentQueue
+        switch productId { //RE ep.144 1mins
+        case IAPProduct.coins.rawValue: //RE ep.144 1mins check if coinsRawValue comFolledoSwagCoin is the same as the ProductId in ItunesConnect
+//            print("User has purchased coins, saving") //RE ep.144 2mins
+            let newCoins = FUser.currentUser()!.coins + 10 //RE ep.144 2mins get current coin and add 10
+            updateCurrentUser(withValues: [kCOINS: newCoins]) { (success) in //RE ep.144 3mins then update our current user
+                print("Coins updated \(newCoins)")
+            }
+        case IAPProduct.agentSubscription.rawValue: //RE ep.144 3mins agent subscription
+            updateCurrentUser(withValues: [kISAGENT: true]) { (success) in //RE ep.144 4mins update 
+                print("User is now an agent") //RE ep.144 5mins
+            }
+        default:
+            print("Not sure what user was purchasing") //RE ep.144 5mins
+        }
+    }
+    
     
 } //end of class
 

@@ -113,8 +113,8 @@ class AddPropertyViewController: UIViewController, ImagePickerDelegate, UITextFi
         
         
         
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-//        self.scrollView.addGestureRecognizer(tap)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        self.scrollView.addGestureRecognizer(tap)
     } //end of viewDidLoad
     
     @objc func startImageIncreaseThenDecrease() { //animation
